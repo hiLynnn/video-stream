@@ -1,0 +1,5 @@
+{
+    "require": {
+        "coingate/coingate-php": "^4.1"
+    }
+}
