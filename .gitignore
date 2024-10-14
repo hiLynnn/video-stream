@@ -20,3 +20,5 @@ yarn-error.log
 /public/upload/*.mp4
 /public/upload/*/*.mp4
 storage
+composer.lock
+package-lock.json

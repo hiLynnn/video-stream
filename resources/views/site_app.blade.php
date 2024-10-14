@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{getcong('default_language')}}">
 <head>
-<meta name="theme-color" content="#ff0015">  
+<meta name="theme-color" content="#ff0015">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
@@ -24,16 +24,16 @@
 <!-- Favicon -->
 <link rel="icon" href="{{ URL::asset('/'.getcong('site_favicon')) }}">
 
-  
+
 <!-- LOAD LOCAL CSS -->
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/owl.carousel.min.css') }}">
- 
+
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/megamenu.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/ionicons.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/font-awesome.min.css') }}">
- 
-   
+
+
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/color-style/style-one.css') }}" id="theme">
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/color-style/style-two.css') }}" id="theme">
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/color-style/style-three.css') }}" id="theme">
@@ -46,7 +46,7 @@
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/splide.min.css') }}">
 
 <link rel="stylesheet" href="{{ URL::asset('site_assets/css/jquery-eu-cookie-law-popup.css') }}">
-
+<link rel="stylesheet" href="{{ URL::asset('build/css/common.css') }}">
 <!-- SweetAlert2 -->
 <script src="{{ URL::asset('site_assets/js/sweetalert2@11.js') }}"></script>
 
@@ -56,9 +56,9 @@
 @if(getcong('site_header_code'))
     {!!stripslashes(getcong('site_header_code'))!!}
  @endif
- 
+
  @if(getcong('styling')=="style-one")
- 
+
     <?php $search_bg="#22134e";?>
 
  @elseif(getcong('styling')=="style-two")
@@ -75,31 +75,31 @@
 
 @elseif(getcong('styling')=="style-five")
 
-    <?php $search_bg="#0f0823";?>   
+    <?php $search_bg="#0f0823";?>
 
  @else
 
   <?php $search_bg="#000000";?>
 
  @endif
- 
+
  <style type="text/css">
       .search .search-input input[type=text]::placeholder, .search .search-input input[type=text].focus {
-          background: {{$search_bg}} !important; 
+          background: {{$search_bg}} !important;
       }
  </style>
 
 </head>
 <body>
-  
+
 
 @if(!classActivePathSite('login') AND !classActivePathSite('signup') AND !classActivePathSite('password') AND !classActivePathSite('tv-login') AND !classActivePathSite('activate'))
 
-    @include("_particles.header") 
+    @include("_particles.header")
 
 @endif
 
-    @yield("content")   
+    @yield("content")
 
 @if(!classActivePathSite('login') AND !classActivePathSite('signup') AND !classActivePathSite('password') AND !classActivePathSite('tv-login') AND !classActivePathSite('activate'))
 
@@ -115,25 +115,25 @@
       </div>
     </div>
     <div class="search-results mt-4" id="search_output">
-        
- 
+
+
     </div>
   </div>
   <a class="close" href="#" title="close"><i class="ion-close-round"></i></a>
-</div>     
- 
-<div class="eupopup eupopup-bottom"></div>
- 
-  
-  <!-- Load Local JS --> 
-<script src="{{ URL::asset('site_assets/js/jquery-3.3.1.min.js') }}"></script> 
-<script src="{{ URL::asset('site_assets/js/jquery.easing.min.js') }}"></script> 
-<script src="{{ URL::asset('site_assets/js/bootstrap.min.js') }}"></script> 
-<script src="{{ URL::asset('site_assets/js/owl.carousel.min.js') }}"></script>
-<script src="{{ URL::asset('site_assets/js/jquery.nice-select.min.js') }}"></script>  
-<script src="{{ URL::asset('site_assets/js/megamenu.js') }}"></script> 
+</div>
 
- 
+<div class="eupopup eupopup-bottom"></div>
+
+
+  <!-- Load Local JS -->
+<script src="{{ URL::asset('site_assets/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ URL::asset('site_assets/js/jquery.easing.min.js') }}"></script>
+<script src="{{ URL::asset('site_assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('site_assets/js/owl.carousel.min.js') }}"></script>
+<script src="{{ URL::asset('site_assets/js/jquery.nice-select.min.js') }}"></script>
+<script src="{{ URL::asset('site_assets/js/megamenu.js') }}"></script>
+
+
 <!-- Splide Slider JS -->
 <script src="{{ URL::asset('site_assets/js/splide.min.js') }}"></script>
 
@@ -141,10 +141,10 @@
 <script src="{{ URL::asset('site_assets/js/custom-main.js') }}"></script>
 
 
-<script src="{{ URL::asset('site_assets/js/jquery-eu-cookie-law-popup.js') }}"></script> 
-
+<script src="{{ URL::asset('site_assets/js/jquery-eu-cookie-law-popup.js') }}"></script>
+<script src="{{ URL::asset('build/js/common.js') }}"></script>
 <script type="text/javascript">
-  
+
 @if(getcong('gdpr_cookie_on_off'))
   $(document).ready( function() {
   if ($(".eupopup").length > 0) {
@@ -183,15 +183,15 @@ function showSuggestions(inputString) {
         }
     });
   }
-}  
+}
 
- 
+
 </script>
 
 <script type="text/javascript">
-  
+
   $("li[data-path]").click(function() {
- 
+
     $("head link#theme").attr("href", $(this).data("path"));
 });
 
@@ -205,21 +205,21 @@ function showSuggestions(inputString) {
        //alert({{Auth::user()->id}});
     $(document).ready( function() {
       $('#user_device_list').modal('show');
- 
+
     });
   </script>
   @endif
 @endif
 
-@if(Auth::user()->usertype!="Admin" AND Auth::user()->usertype!="Sub_Admin") 
- 
+@if(Auth::user()->usertype!="Admin" AND Auth::user()->usertype!="Sub_Admin")
+
 <script type="text/javascript">
-  
+
   function executeQuery() {
   $.ajax({
     url: "{{url('check_user_remotely_logout_or_not/'.Session::getId())}}",
     success: function(data) {
-      
+
       if(data=="false")
       {
          jQuery('#logout_remotly').modal('show');
@@ -228,7 +228,7 @@ function showSuggestions(inputString) {
                   window.location="{{ URL::to('/') }}"
               }, 5000);
       }
-       
+
     }
   });
   setTimeout(executeQuery, 10000); // you could choose not to continue on failure...
@@ -240,18 +240,18 @@ $(document).ready(function() {
 });
 
 </script>
- 
+
 @endif
 
 
 @endif
-   
+
 
 @if(getcong('site_footer_code'))
     {!!stripslashes(getcong('site_footer_code'))!!}
 @endif
 
- 
+
 
 </body>
 </html>
