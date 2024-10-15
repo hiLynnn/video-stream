@@ -3,7 +3,9 @@
 
 @section('content')
     @include("partials.header")
-    <h4>fffffffffff</h4>
-  
+    <div class="body-container">
+        @include("pages.new-home.menu")
+        
+    </div>
  
 @endsection
