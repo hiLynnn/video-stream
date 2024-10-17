@@ -19,6 +19,7 @@
 <meta property="og:image:height" content="1024" />
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="@yield('head_image', URL::asset('/'.getcong('site_logo')))">
+<meta name="google-adsense-account" content="ca-pub-7220843961648970">
 <link rel="image_src" href="@yield('head_image', URL::asset('/'.getcong('site_logo')))">
 
 <!-- Favicon -->
