@@ -49,6 +49,8 @@
 <link rel="stylesheet" href="{{ URL::asset('build/css/common.css') }}">
 <!-- SweetAlert2 -->
 <script src="{{ URL::asset('site_assets/js/sweetalert2@11.js') }}"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
+     crossorigin="anonymous"></script>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&display=swap" rel="stylesheet">
