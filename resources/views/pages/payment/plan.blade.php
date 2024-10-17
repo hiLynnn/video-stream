@@ -55,7 +55,6 @@
             <div class="membership-plan-list">
             <h3>{{$plan_data->plan_name}}</h3>
             <h1>
-              <span>{{html_entity_decode(getCurrencySymbols(getcong('currency_code')))}}</span>
               @if(Session::get('coupon_percentage'))
               <?php 
                    $discount_price_less =  $plan_data->plan_price * Session::get('coupon_percentage') / 100;
