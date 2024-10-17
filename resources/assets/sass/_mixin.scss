@@ -78,3 +78,13 @@ $max) {
     height: 100%;
     width: 100%;
 }
+
+body a {
+    color: rgba(255, 255, 255, 0.9);
+    transition: color 250ms ease 0s;
+    text-decoration: none;
+    cursor: pointer;
+}
+body{
+    margin: 0;
+}
