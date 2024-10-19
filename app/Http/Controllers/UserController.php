@@ -13,6 +13,9 @@ use App\Transactions;
 use App\Watchlist;
 use App\Coupons;
 use App\UsersDeviceHistory;
+use Carbon\Carbon;
+
+use PayOS\PayOS;
 
 
 use Illuminate\Http\Request;
@@ -27,6 +30,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public $Order_id;
       
     public function dashboard()
     {
@@ -185,135 +189,70 @@ class UserController extends Controller
         return view('pages.payment.plan',compact('plan_list'));
     }
 
-    function execPostRequest($url, $data)
-    {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($data))
-        );
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        //execute post
-        $result = curl_exec($ch);
-        //close connection
-        curl_close($ch);
-        return $result;
-    }
-    
+    public function createPaymentLink(Request $request) {
+        $YOUR_DOMAIN = "http://127.0.0.1:8000/membership_plan";
+        $cancelUrl   = "http://127.0.0.1:8000";
+        $data = [
+            "orderCode" => intval(substr(strval(microtime(true) * 10000), -6)),
+            "amount" => 10000,
+            "description" => "Thanh toán đơn hàng",
+            "returnUrl" => $YOUR_DOMAIN,
+            "cancelUrl" => $cancelUrl,
+        ];
+        error_log($data['orderCode']);
+        Session::put('order_id', $data['orderCode']);
+        $PAYOS_CLIENT_ID = env('PAYOS_CLIENT_ID');
+        $PAYOS_API_KEY = env('PAYOS_API_KEY');
+        $PAYOS_CHECKSUM_KEY = env('PAYOS_CHECKSUM_KEY');
 
-    public function payment_method($plan_id)
-    { 
-
-        if(!Auth::check())
-        {
-            \Session::flash('error_flash_message', trans('words.access_denied'));
-            return redirect('login');            
+        $payOS = new PayOS($PAYOS_CLIENT_ID, $PAYOS_API_KEY, $PAYOS_CHECKSUM_KEY);
+        try {
+            $response = $payOS->createPaymentLink($data);
+            // $response = $payOS->getPaymentLinkInformation(615638);
+            // dd($response);
+            return redirect($response['checkoutUrl']);
+            // return $response;
+        } catch (\Throwable $th) {
+            return $th->getMessage();
         }
-        if(Auth::User()->usertype=="Admin" OR Auth::User()->usertype=="Sub_Admin")
-        { 
-            return redirect('admin');            
-        } 
-
-        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-                    $partnerCode = 'MOMOBKUN20180529';
-                    $accessKey = 'klm05TvNBzhg7h7j';
-                    $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
-                    $orderInfo = "Thanh toán qua MoMo";
-                    $amount = 10000;
-                    $orderId = time() . "";
-                    $redirectUrl = "http://localhost:8000/membership_plan";
-                    $ipnUrl = "http://localhost:8000/membership_plan";
-                    $extraData = "";                    
-                        $requestId = time() . "";
-                        $requestType = "payWithATM";
-                        //before sign HMAC SHA256 signature
-                        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
-                        $signature = hash_hmac("sha256", $rawHash, $secretKey);
-                        $data = array('partnerCode' => $partnerCode,
-                            'partnerName' => "Test",
-                            "storeId" => "MomoTestStore",
-                            'requestId' => $requestId,
-                            'amount' => $amount,
-                            'orderId' => $orderId,
-                            'orderInfo' => $orderInfo,
-                            'redirectUrl' => $redirectUrl,
-                            'ipnUrl' => $ipnUrl,
-                            'lang' => 'vi',
-                            'extraData' => $extraData,
-                            'requestType' => $requestType,
-                            'signature' => $signature);
-                        $result = $this->execPostRequest($endpoint, json_encode($data));
-                        $jsonResult = json_decode($result, true);  // decode json
-                        return redirect()->to($jsonResult['payUrl']);
-
-
-        // $plan_info = SubscriptionPlan::where('id',$plan_id)->where('status','1')->first();
-
-        // if(!$plan_info)
-        // {
-        //     \Session::flash('flash_message', 'Select plan!');
-        //     return redirect('membership_plan'); 
-        // }  
-
-        // //For free plan
-        // if($plan_info->plan_price <=0)
-        // {
-        //     $plan_days=$plan_info->plan_days;
-        //     $plan_amount=$plan_info->plan_price;
- 
-        //     $currency_code=getcong('currency_code')?getcong('currency_code'):'USD';
-
-        //     $user_id=Auth::user()->id;           
-        //     $user = User::findOrFail($user_id);
-
-        //     $user->plan_id = $plan_id;                    
-        //     $user->start_date = strtotime(date('m/d/Y'));             
-        //     $user->exp_date = strtotime(date('m/d/Y', strtotime("+$plan_days days")));            
-             
-        //     $user->plan_amount = $plan_amount;
-        //     //$user->subscription_status = 0;
-        //     $user->save();
-
-
-        //     $payment_trans = new Transactions;
-
-        //     $payment_trans->user_id = Auth::user()->id;
-        //     $payment_trans->email = Auth::user()->email;
-        //     $payment_trans->plan_id = $plan_id;
-        //     $payment_trans->gateway = 'NA';
-        //     $payment_trans->payment_amount = $plan_amount;
-        //     $payment_trans->payment_id = '-';
-        //     $payment_trans->date = strtotime(date('m/d/Y H:i:s'));                    
-        //     $payment_trans->save();
-
-        //     Session::flash('plan_id',Session::get('plan_id'));
-
-        //     \Session::flash('success',trans('words.payment_success'));
-        //      return redirect('dashboard');
-        // }
-
-        // Session::put('plan_id', $plan_id);
-        // Session::flash('razorpay_order_id',Session::get('razorpay_order_id'));
-
-
-        // if(Session::get('coupon_percentage'))
-        // {   
-        //     //If coupon used
-        //     $discount_price_less =  $plan_info->plan_price * Session::get('coupon_percentage') / 100;
-
-        // }
-        // else
-        // {
-        //     //If no coupon used
-        //     $discount_price_less = 0;
-        // }
-
- 
-        // return view('pages.payment.payment_method',compact('plan_info','discount_price_less'));
+    }
+    public function successPayment(Request $request){
+        $PAYOS_CLIENT_ID = env('PAYOS_CLIENT_ID');
+        $PAYOS_API_KEY = env('PAYOS_API_KEY');
+        $PAYOS_CHECKSUM_KEY = env('PAYOS_CHECKSUM_KEY');
+        $payOS = new PayOS($PAYOS_CLIENT_ID, $PAYOS_API_KEY, $PAYOS_CHECKSUM_KEY);
+        try{
+            $order_id = session::get('order_id');
+            $response = $payOS->getPaymentLinkInformation(270097);
+            if($response['status'] === "PAID"){
+                $order = [
+                    'user_id' =>  Auth::User()->id,
+                    'email'   => Auth::User()->email,
+                    'plan_id' => 1,
+                    'payment_amount' => $response['amount'],
+                    'gateway'  => '',
+                    'date'     => Carbon::now()->format('d-m-Y'),
+                    'payment_id' => 0 ,
+                ];
+                $order = Transactions::create($order);
+                $updatuser = User::where('id', Auth::User()->id)->update(['plan_id' => 2]);
+                Session::forget('order_id');
+                return response()->json([
+                    "error" => 0,
+                    "message" => "Success",
+                    "data" => $response,
+                    "order" => $order,
+                    "updatuser" => $updatuser
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                "error" => $th->getCode(),
+                "message" => $th->getMessage(),
+                "data" => null
+            ]);
+    }
+       
     }
     
     public function my_watchlist()

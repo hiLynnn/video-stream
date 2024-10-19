@@ -6,7 +6,39 @@
 
 @section('content')
   
- 
+@if(Session::has('order_id'))
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+          $.ajax({
+                url: "{{ route('success-payment') }}",
+                method: "GET",
+                dataType: "json",
+                success: function(response) {
+                    if(response.error === 0) {
+                      console.log("response",response);
+                        console.log("Payment Success:", response.data);
+                        if(response.data.status === "PAID"){
+                          const notification = document.querySelector('.payment-success-container');
+                          notification.style.display = 'block';
+                          setTimeout(function() {
+                              notification.classList.add('fade-out');
+                              notification.classList.add('hide'); // Use this class to trigger opacity to 0
+                              setTimeout(function() {
+                                  notification.style.display = 'none';
+                              }, 500);
+                          }, 2000);
+                        }
+                    } else {
+                        console.error("Error:", response.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error:", textStatus, errorThrown);
+                }
+            });
+        });
+</script>
+@endif
 <!-- Start Breadcrumb -->
 <div class="breadcrumb-section bg-xs" style="background-image: url('{{ URL::asset('site_assets/images/breadcrum-bg.jpg') }}')">
     <div class="container-fluid">
@@ -101,5 +133,44 @@
   </div>
 </div>
 <!-- End Membership Plan Page -->
+<style>
+    /* Center the container */
+    .payment-success-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999; /* Ensure it appears on top */
+        display: none;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    /* Add smooth fade-out effect */
+    .fade-out {
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    .fade-out.hide {
+        opacity: 0;
+    }
+</style>
+<div class="payment-success-container">
+    <div class="card shadow p-4">
+        <div class="text-center">
+            <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+            <h2 class="mt-3">Payment Successful!</h2>
+            <p class="lead">Thank you for your purchase. Your payment was processed successfully.</p>
+            <hr>
+            <div class="order-details mt-4">
+                <button class="btn btn-primary mt-3" onclick="window.location.href='/your-dashboard'">
+                    Go to Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
  
 @endsection

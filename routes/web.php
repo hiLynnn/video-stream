@@ -304,7 +304,8 @@ Route::get('watchlist', 'UserController@my_watchlist');
 Route::get('account_delete', 'UserController@account_delete');
 
 Route::get('membership_plan', 'UserController@membership_plan');
-Route::get('payment_method/{plan_id}', 'UserController@payment_method');
+Route::get('payment_method/{plan_id}', 'UserController@createPaymentLink');
+Route::get('success-payment', 'UserController@successPayment')->name('success-payment');
 
 Route::post('paypal/pay', 'PaypalController@paypal_pay');
 Route::get('paypal/success', 'PaypalController@paypal_success');
