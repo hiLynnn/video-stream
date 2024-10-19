@@ -185,8 +185,69 @@ class UserController extends Controller
         return view('pages.payment.plan',compact('plan_list'));
     }
 
-    public function payment_method($plan_id)
-    { 
+    public function createPaymentLink(Request $request) {
+        $YOUR_DOMAIN = "http://127.0.0.1:8000/membership_plan";
+        $cancelUrl   = "http://127.0.0.1:8000";
+        $data = [
+            "orderCode" => intval(substr(strval(microtime(true) * 10000), -6)),
+            "amount" => 10000,
+            "description" => "Thanh toán đơn hàng",
+            "returnUrl" => $YOUR_DOMAIN,
+            "cancelUrl" => $cancelUrl,
+        ];
+        error_log($data['orderCode']);
+        Session::put('order_id', $data['orderCode']);
+        $PAYOS_CLIENT_ID = env('PAYOS_CLIENT_ID');
+        $PAYOS_API_KEY = env('PAYOS_API_KEY');
+        $PAYOS_CHECKSUM_KEY = env('PAYOS_CHECKSUM_KEY');
+
+        $payOS = new PayOS($PAYOS_CLIENT_ID, $PAYOS_API_KEY, $PAYOS_CHECKSUM_KEY);
+        try {
+            $response = $payOS->createPaymentLink($data);
+            // $response = $payOS->getPaymentLinkInformation(615638);
+            // dd($response);
+            return redirect($response['checkoutUrl']);
+            // return $response;
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+    public function successPayment(Request $request){
+        $PAYOS_CLIENT_ID = env('PAYOS_CLIENT_ID');
+        $PAYOS_API_KEY = env('PAYOS_API_KEY');
+        $PAYOS_CHECKSUM_KEY = env('PAYOS_CHECKSUM_KEY');
+        $payOS = new PayOS($PAYOS_CLIENT_ID, $PAYOS_API_KEY, $PAYOS_CHECKSUM_KEY);
+        try{
+            $order_id = session::get('order_id');
+            $response = $payOS->getPaymentLinkInformation(270097);
+            if($response['status'] === "PAID"){
+                $order = [
+                    'user_id' =>  Auth::User()->id,
+                    'email'   => Auth::User()->email,
+                    'plan_id' => 1,
+                    'payment_amount' => $response['amount'],
+                    'gateway'  => '',
+                    'date'     => Carbon::now()->format('Y-m-d'),
+                    'payment_id' => 0 ,
+                ];
+                $order = Transactions::create($order);
+                $updatuser = User::where('id', Auth::User()->id)->update(['plan_id' => 2]);
+                Session::forget('order_id');
+                return response()->json([
+                    "error" => 0,
+                    "message" => "Success",
+                    "data" => $response,
+                    "order" => $order,
+                    "updatuser" => $updatuser
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                "error" => $th->getCode(),
+                "message" => $th->getMessage(),
+                "data" => null
+            ]);
+    }
        
         if(!Auth::check())
         {
