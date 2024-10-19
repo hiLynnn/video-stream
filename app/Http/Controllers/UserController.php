@@ -219,7 +219,7 @@ class UserController extends Controller
         $payOS = new PayOS($PAYOS_CLIENT_ID, $PAYOS_API_KEY, $PAYOS_CHECKSUM_KEY);
         try{
             $order_id = session::get('order_id');
-            $response = $payOS->getPaymentLinkInformation(270097);
+            $response = $payOS->getPaymentLinkInformation($order_id);
             if($response['status'] === "PAID"){
                 $order = [
                     'user_id' =>  Auth::User()->id,
