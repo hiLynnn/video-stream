@@ -33,6 +33,9 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="container-full">
+                    <a href="">See more</a>
+                </div>
             </div>
 
             <div class="category-component">
@@ -48,6 +51,9 @@
                                 <div class="thumb">
                                     <img src="{{Arr::get($sery,'series_poster','')}}" alt="">
                                 </div>
+                                <div class="play-icon">
+                                    <img src="{{asset('site_assets/icon/circle-play.svg')}}" alt="">
+                                </div>
                                 <div class="title">
                                     <span>{{Arr::get($sery,'series_name','')}}</span>
                                 </div>
@@ -55,21 +61,14 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="container-full">
+                    <a href="/category">See more</a>
+                </div>
             </div>
         </div>
         <div class="common-footer">
             <div class="container-page">
 
-            </div>
-        </div>
-        <div class="ads-script">
-            <div class="close-btn">
-                đóng
-            </div>
-            <div class="banner-ads-wr">
-                <div class="container-ads">
-                    <img src="{{asset('site_assets/ads/banner-ads.jpg')}}" alt="">
-                </div>
             </div>
         </div>
     </div>

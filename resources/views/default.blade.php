@@ -31,7 +31,16 @@
 <body>
 
 @yield("content")
-
+<div class="ads-script">
+    <div class="close-btn">
+        đóng
+    </div>
+    <div class="banner-ads-wr">
+        <div class="container-ads">
+            <img src="{{asset('site_assets/ads/banner-ads.jpg')}}" alt="">
+        </div>
+    </div>
+</div>
 <script src="{{ URL::asset('site_assets/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('site_assets/js/jquery.easing.min.js') }}"></script>
 <script src="{{ URL::asset('build/js/common.js') }}"></script>

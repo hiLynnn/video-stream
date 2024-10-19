@@ -4,6 +4,9 @@ class Home{
     }
     events(){
         console.log("Run home scripts!");
+        $(document).on('click','.close-btn',function(){
+            $('.ads-script').css('display','none')
+        })
         this.videoSwiper();
     }
     videoSwiper(){

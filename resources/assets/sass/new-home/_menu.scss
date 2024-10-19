@@ -611,6 +611,17 @@
 
         }
     }
+
+    .container-full{
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        a{
+            display: block;
+            padding: 5px 8px;
+            background-color: gray;
+        }
+    }
 }
 
 .common-footer{
@@ -625,6 +636,7 @@
     bottom: 0px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 150;
     .close-btn{
         position: absolute;
         right: 0;
