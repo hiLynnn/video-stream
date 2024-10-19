@@ -13,6 +13,9 @@ use App\Transactions;
 use App\Watchlist;
 use App\Coupons;
 use App\UsersDeviceHistory;
+use Carbon\Carbon;
+
+use PayOS\PayOS;
 
 
 use Illuminate\Http\Request;
@@ -27,6 +30,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public $Order_id;
       
     public function dashboard()
     {
@@ -227,7 +231,7 @@ class UserController extends Controller
                     'plan_id' => 1,
                     'payment_amount' => $response['amount'],
                     'gateway'  => '',
-                    'date'     => Carbon::now()->format('Y-m-d'),
+                    'date'     => Carbon::now()->format('d-m-Y'),
                     'payment_id' => 0 ,
                 ];
                 $order = Transactions::create($order);
@@ -249,79 +253,6 @@ class UserController extends Controller
             ]);
     }
        
-        if(!Auth::check())
-        {
-            \Session::flash('error_flash_message', trans('words.access_denied'));
-            return redirect('login');            
-        }
-        if(Auth::User()->usertype=="Admin" OR Auth::User()->usertype=="Sub_Admin")
-        { 
-            return redirect('admin');            
-        } 
-
-        $plan_info = SubscriptionPlan::where('id',$plan_id)->where('status','1')->first();
-
-        if(!$plan_info)
-        {
-            \Session::flash('flash_message', 'Select plan!');
-            return redirect('membership_plan'); 
-        }  
-
-        //For free plan
-        if($plan_info->plan_price <=0)
-        {
-            $plan_days=$plan_info->plan_days;
-            $plan_amount=$plan_info->plan_price;
- 
-            $currency_code=getcong('currency_code')?getcong('currency_code'):'USD';
-
-            $user_id=Auth::user()->id;           
-            $user = User::findOrFail($user_id);
-
-            $user->plan_id = $plan_id;                    
-            $user->start_date = strtotime(date('m/d/Y'));             
-            $user->exp_date = strtotime(date('m/d/Y', strtotime("+$plan_days days")));            
-             
-            $user->plan_amount = $plan_amount;
-            //$user->subscription_status = 0;
-            $user->save();
-
-
-            $payment_trans = new Transactions;
-
-            $payment_trans->user_id = Auth::user()->id;
-            $payment_trans->email = Auth::user()->email;
-            $payment_trans->plan_id = $plan_id;
-            $payment_trans->gateway = 'NA';
-            $payment_trans->payment_amount = $plan_amount;
-            $payment_trans->payment_id = '-';
-            $payment_trans->date = strtotime(date('m/d/Y H:i:s'));                    
-            $payment_trans->save();
-
-            Session::flash('plan_id',Session::get('plan_id'));
-
-            \Session::flash('success',trans('words.payment_success'));
-             return redirect('dashboard');
-        }
-
-        Session::put('plan_id', $plan_id);
-        Session::flash('razorpay_order_id',Session::get('razorpay_order_id'));
-
-
-        if(Session::get('coupon_percentage'))
-        {   
-            //If coupon used
-            $discount_price_less =  $plan_info->plan_price * Session::get('coupon_percentage') / 100;
-
-        }
-        else
-        {
-            //If no coupon used
-            $discount_price_less = 0;
-        }
-
- 
-        return view('pages.payment.payment_method',compact('plan_info','discount_price_less'));
     }
     
     public function my_watchlist()
