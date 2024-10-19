@@ -319,7 +319,7 @@ Route::post('phone_update', 'UserController@phone_update');
 Route::get('watchlist', 'UserController@my_watchlist');
 Route::get('account_delete', 'UserController@account_delete');
 
-Route::get('membership_plan', 'UserController@membership_plan');
+Route::get('membership_plan', 'UserController@membership_plan')->name('public-payment-index');
 Route::get('payment_method/{plan_id}', 'UserController@createPaymentLink');
 Route::get('success-payment', 'UserController@successPayment')->name('success-payment');
 
