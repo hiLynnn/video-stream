@@ -205,9 +205,9 @@ class UserController extends Controller
         ];
         error_log($data['orderCode']);
         Session::put('order_id', $data['orderCode']);
-        $PAYOS_CLIENT_ID = env('PAYOS_CLIENT_ID');
-        $PAYOS_API_KEY = env('PAYOS_API_KEY');
-        $PAYOS_CHECKSUM_KEY = env('PAYOS_CHECKSUM_KEY');
+        $PAYOS_CLIENT_ID = "23bd3644-9c91-42c9-bc12-2b0f9757ded6";
+        $PAYOS_API_KEY = "e44c05ab-ae6d-47a4-b184-e5c19fab6450";
+        $PAYOS_CHECKSUM_KEY = "726a194eb054027adecf5a08dfa24717fc480645f31c7c33bdecde39d6dd6ad6";
 
         $payOS = new PayOS($PAYOS_CLIENT_ID, $PAYOS_API_KEY, $PAYOS_CHECKSUM_KEY);
         try {
@@ -221,9 +221,9 @@ class UserController extends Controller
         }
     }
     public function successPayment(Request $request){
-        $PAYOS_CLIENT_ID = env('PAYOS_CLIENT_ID');
-        $PAYOS_API_KEY = env('PAYOS_API_KEY');
-        $PAYOS_CHECKSUM_KEY = env('PAYOS_CHECKSUM_KEY');
+        $PAYOS_CLIENT_ID = "23bd3644-9c91-42c9-bc12-2b0f9757ded6";
+        $PAYOS_API_KEY = "e44c05ab-ae6d-47a4-b184-e5c19fab6450";
+        $PAYOS_CHECKSUM_KEY = "726a194eb054027adecf5a08dfa24717fc480645f31c7c33bdecde39d6dd6ad6";
         $payOS = new PayOS($PAYOS_CLIENT_ID, $PAYOS_API_KEY, $PAYOS_CHECKSUM_KEY);
         try{
             $order_id = session::get('order_id');
