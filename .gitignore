@@ -21,3 +21,4 @@ yarn-error.log
 /public/upload/*/*.mp4
 composer.lock
 package-lock.json
+public/upload
