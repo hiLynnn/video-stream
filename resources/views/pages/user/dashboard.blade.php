@@ -118,14 +118,16 @@
           <tr>            
             <th>{{trans('words.plan')}}</th>
             <th>{{trans('words.amount')}}</th>
-            <th>{{trans('words.payment_gateway')}}</th>
-            <th>{{trans('words.payment_id')}}</th>
             <th>{{trans('words.payment_date')}}</th>
           </tr>
         </thead> 
+        @foreach($transactions_list as $transaction)
         <tbody>   
-          history_here
-        <tbody>
+          <td>{{$transaction->plan_id}}</td>
+          <td>{{$transaction->payment_amount}}</td>
+          <td>{{$transaction->date}}</td>
+          <tbody>
+        @endforeach
       </table>
         </div>
 
@@ -140,7 +142,7 @@
 </div>
 <!-- End Dashboard Page -->   
 
-@include("pages.user.logged_in_device_list")
+<!-- @include("pages.user.logged_in_device_list") -->
 
 <script src="{{ URL::asset('site_assets/js/jquery-3.3.1.min.js') }}"></script> 
 

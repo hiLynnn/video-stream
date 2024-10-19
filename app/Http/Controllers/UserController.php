@@ -52,7 +52,6 @@ class UserController extends Controller
         $user = User::findOrFail($user_id);
  
         $transactions_list = Transactions::where('user_id',$user_id)->orderBy('id','DESC')->paginate(10);
-
         return view('pages.user.dashboard',compact('user','transactions_list'));
     }
 
@@ -190,8 +189,13 @@ class UserController extends Controller
     }
 
     public function createPaymentLink(Request $request) {
-        $YOUR_DOMAIN = "http://127.0.0.1:8000/membership_plan";
-        $cancelUrl   = "http://127.0.0.1:8000";
+        if(!Auth::check())
+        {
+            \Session::flash('error_flash_message', trans('words.access_denied'));
+            return redirect('login');            
+        }
+        $YOUR_DOMAIN = route('public-payment-index');
+        $cancelUrl   = route('public.index');
         $data = [
             "orderCode" => intval(substr(strval(microtime(true) * 10000), -6)),
             "amount" => 10000,
@@ -231,7 +235,7 @@ class UserController extends Controller
                     'plan_id' => 1,
                     'payment_amount' => $response['amount'],
                     'gateway'  => '',
-                    'date'     => Carbon::now()->format('d-m-Y'),
+                    'date'     => Carbon::now()->format('Y-m-d'),
                     'payment_id' => 0 ,
                 ];
                 $order = Transactions::create($order);
