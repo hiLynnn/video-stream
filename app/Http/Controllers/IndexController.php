@@ -44,61 +44,10 @@ class IndexController extends Controller
 
     public function index()
     {
-        // if(!$this->alreadyInstalled())
-        // {
-        //     return redirect('public/install');
-        // }
-
-    	$slider= Slider::where('status',1)->whereRaw("find_in_set('Home',slider_display_on)")->orderby('id','DESC')->get();
-
-        if(Auth::check())
-        {
-            $current_user_id=Auth::User()->id;
-
-            if(getcong('menu_movies')==0 AND getcong('menu_shows')==0)
-            {
-                $recently_watched = RecentlyWatched::where('user_id',$current_user_id)->where('video_type','!=','Movies')->where('video_type','!=','Episodes')->orderby('id','DESC')->get();
-            }
-            else if(getcong('menu_sports')==0 AND getcong('menu_livetv')==0)
-            {
-                $recently_watched = RecentlyWatched::where('user_id',$current_user_id)->where('video_type','!=','Sports')->where('video_type','!=','LiveTV')->orderby('id','DESC')->get();
-            }
-            else if(getcong('menu_livetv')==0)
-            {
-                $recently_watched = RecentlyWatched::where('user_id',$current_user_id)->where('video_type','!=','LiveTV')->orderby('id','DESC')->get();
-            }
-            else if(getcong('menu_sports')==0)
-            {
-                $recently_watched = RecentlyWatched::where('user_id',$current_user_id)->where('video_type','!=','Sports')->orderby('id','DESC')->get();
-            }
-            else if(getcong('menu_movies')==0)
-            {
-                $recently_watched = RecentlyWatched::where('user_id',$current_user_id)->where('video_type','!=','Movies')->orderby('id','DESC')->get();
-            }
-            else if(getcong('menu_shows')==0)
-            {
-                $recently_watched = RecentlyWatched::where('user_id',$current_user_id)->where('video_type','!=','Episodes')->orderby('id','DESC')->get();
-            }
-            else
-            {
-                $recently_watched = RecentlyWatched::where('user_id',$current_user_id)->orderby('id','DESC')->get();
-            }
-
-        }
-        else
-        {
-            $recently_watched = array();
-        }
-
-        $upcoming_movies = Movies::where('upcoming',1)->orderby('id','DESC')->get();
-        $upcoming_series = Series::where('upcoming',1)->orderby('id','DESC')->get();
-        // dd($upcoming_movies->count());
-        //dd($upcoming_movies);exit;
-
-        $home_sections = HomeSections::where('status',1)->orderby('id')->get();
-
-        return view('pages.index',compact('slider','recently_watched','upcoming_movies','upcoming_series','home_sections'));
-
+        $data[] = [];
+        $data['upcoming_movies'] = Movies::where('upcoming',1)->orderby('id','DESC')->get();
+        $data['upcoming_series'] = Series::where('upcoming',1)->orderby('id','DESC')->get();
+        return view('pages.index',compact('data'));
     }
     public function oldIndex()
     {
