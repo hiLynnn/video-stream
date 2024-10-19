@@ -123,21 +123,8 @@
             <th>{{trans('words.payment_date')}}</th>
           </tr>
         </thead> 
-        <tbody>
-          @foreach($transactions_list as $i => $transaction_data)
-          <tr>                      
-            <td><span class="current-plan-item">{{\App\SubscriptionPlan::getSubscriptionPlanInfo($transaction_data->plan_id,'plan_name')}}</span></td>
-            <td>{{html_entity_decode(getCurrencySymbols(getcong('currency_code')))}} {{ number_format($transaction_data->payment_amount,2) }}
-            @if($transaction_data->coupon_code!="")
-              &nbsp;
-              (Coupon Used: {{$transaction_data->coupon_code}})
-            @endif
-            </td>
-            <td>{{ $transaction_data->gateway }}</td>
-            <td>{{ $transaction_data->payment_id }}</td>    
-            <td><span class="expires-plan-item">{{ date('M d Y h:i A',$transaction_data->date) }}</span></td>            
-          </tr>
-          @endforeach           
+        <tbody>   
+          history_here
         <tbody>
       </table>
         </div>
@@ -147,7 +134,6 @@
         @include('_particles.pagination', ['paginator' => $transactions_list])
      
       </div>
-
      </div>
     </div>
   </div>

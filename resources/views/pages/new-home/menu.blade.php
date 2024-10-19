@@ -45,7 +45,7 @@
                         </li>
                         <li  class="desktop">
                             <div>
-                                <a class="nav-link" href="/en">
+                                <a class="nav-link" href="{{route("public-payment-index")}}">
                                     <div class="icon-md">
                                         <img src="{{asset('site_assets/icon/payment.svg')}}" alt="">
                                     </div>
