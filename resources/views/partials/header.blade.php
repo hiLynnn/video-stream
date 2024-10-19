@@ -24,7 +24,7 @@
         </div>
         <div class="menu-header__info">
             <div class="menu-header__info-list">
-                <button type="button" id="header-login-button" class="css-Button-StyledLoginButton">Log in</button>
+                <button type="button" id="header-login-button" class="css-Button-StyledLoginButton desktop">Log in</button>
                 <svg class="css-StyledEllipsisVertical e13wiwn64" width="1em" data-e2e="" height="1em"
                     viewBox="0 0 48 48" fill="#ffff" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rdive="evenodd" clip-rule="evenodd"

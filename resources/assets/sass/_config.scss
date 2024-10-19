@@ -1,0 +1,40 @@
+.container-customize {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1920px;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
+
+.desktop{
+    @include maxWidth(991){
+        display: none !important;
+    }
+}
+
+.mobile{
+    display: none !important;
+    @include maxWidth(991){
+        display: unset !important;
+    }
+}
+
+.icon-md{
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+        width: 18px;
+        height: 18px;
+    }
+    @include maxWidth(991){
+        img{
+            width: 22px;
+            height: 22px;
+        }
+    }
+}
