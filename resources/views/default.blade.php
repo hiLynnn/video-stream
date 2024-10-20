@@ -27,6 +27,11 @@
 <link rel="icon" href="{{ URL::asset('/'.getcong('site_favicon')) }}">
 <link rel="image_src" href="@yield('head_image', URL::asset('/'.getcong('site_logo')))">
 <title>@yield('head_title', getcong('site_name'))</title>
+
+<!-- ads -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
+crossorigin="anonymous"></script>
+<meta name="google-adsense-account" content="ca-pub-7220843961648970">
 </head>
 <body>
 
@@ -35,11 +40,13 @@
     <div class="close-btn">
         đóng
     </div>
+    @if(Auth::User()->plan_id == 0)
     <div class="banner-ads-wr">
         <div class="container-ads">
             <img src="{{asset('site_assets/ads/banner-ads.jpg')}}" alt="">
         </div>
     </div>
+    @endif
 </div>
 <script src="{{ URL::asset('site_assets/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('site_assets/js/jquery.easing.min.js') }}"></script>

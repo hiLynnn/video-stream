@@ -52,6 +52,9 @@ class UserController extends Controller
         $user = User::findOrFail($user_id);
  
         $transactions_list = Transactions::where('user_id',$user_id)->orderBy('id','DESC')->paginate(10);
+        foreach ($transactions_list as $transaction) {
+            $formatted_date = $transaction->formatDate($transaction->date);
+        }
         return view('pages.user.dashboard',compact('user','transactions_list'));
     }
 

@@ -93,9 +93,9 @@
 
                    $final_plan_price = $plan_data->plan_price - $discount_price_less;
 
-              echo number_format($final_plan_price,2);?>
+              echo $final_plan_price ?>
               @else
-              <?php echo number_format($plan_data->plan_price,2);?>
+                {{$plan_data->plan_price}} 
               @endif
               
             </h1>
@@ -108,7 +108,7 @@
         @endforeach  
       
       </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
             <div class="apply-coupon-code">
             <h2>{{trans('words.have_coupon_code')}}</h2>
@@ -130,7 +130,7 @@
           </div>
         </div>    
      </div>
-  </div>
+  </div> -->
 </div>
 <!-- End Membership Plan Page -->
 <style>

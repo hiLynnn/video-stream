@@ -4,9 +4,11 @@
         @include("partials.header")
         <div class="area-body-home container-page">
             <div class="banner-ads-wr">
+                @if(Auth::User()->plan_id == 0)
                 <div class="container-ads">
                     <img src="{{asset('site_assets/ads/banner-ads.jpg')}}" alt="">
                 </div>
+                @endif
             </div>
 
             <div class="category-component">
