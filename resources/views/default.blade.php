@@ -20,6 +20,7 @@
 {{-- script && css --}}
 <link rel="canonical" href="@yield('head_url', url('/'))">
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&display=swap" rel="stylesheet">
+<link rel="icon" href="{{ URL::asset('/'.getcong('site_favicon')) }}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="{{ URL::asset('build/css/common.css') }}">

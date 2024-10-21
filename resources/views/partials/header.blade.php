@@ -1,9 +1,11 @@
 <header id="main-header">
     <nav class="menu-header container-customize">
         <div class="menu-header__logo">
-            <a href="/" class="header-logo-wrapper ">
-                <img src="{{ URL::asset('site_assets/images/breadcrum-bg.jpg') }}" alt="logo">
-            </a>
+        @if(getcong('site_logo'))                 
+                <a href="{{ URL::to('/') }}" title="logo" class="logo"><img src="{{ URL::asset('/'.getcong('site_logo')) }}" alt="logo" title="logo"></a>
+              @else
+                <a href="{{ URL::to('/') }}" title="logo" class="logo"><img src="{{ URL::asset('site_assets/images/logo.png') }}" alt="logo" title="logo"></a>                          
+              @endif
         </div>
         <div class="menu-header__wrapper">
             <form data-e2e="search-box" class="search-input css-FormElement" action="/search"><input placeholder="Search"
@@ -24,9 +26,52 @@
         </div>
         <div class="menu-header__info">
             <div class="menu-header__info-list">
+                @if(!Auth::check())
                 <button type="button" id="header-login-button" class="css-Button-StyledLoginButton desktop">
                     <a href="{{ URL::to('login') }}" title="login"><span>{{trans('words.login_text')}}</span></a>
                 </button>
+                @else
+                <div class="user-menu">
+                    <div class="logo-buy-service">
+                        <div>
+                            <a href="{{ URL::to('membership_plan') }}" title="subscribe"><img src="{{ URL::asset('site_assets/images/ic-subscribe.png') }}" alt="ic-subscribe" title="ic-subscribe"></a>
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name">
+                            <span>
+                                @if(Auth::User()->user_image AND file_exists(public_path('upload/'.Auth::User()->user_image)))
+                                <img src="{{ URL::asset('upload/'.Auth::User()->user_image) }}" alt="profile_img" title="{{Auth::User()->name,6}}" id="userPic">
+                                @else  
+                                    <img src="{{ URL::asset('site_assets/images/user-avatar.png') }}" alt="profile_img" title="{{Auth::User()->name,6}}" id="userPic">
+                                @endif
+                                
+                            </span>
+                            <div class="name">
+                                {{ Str::limit(Auth::User()->name)}}<i class="fa fa-angle-down" id="userArrow"></i>
+                            </div>
+                        </div>
+
+                        @if(Auth::User()->usertype =="Admin" OR Auth::User()->usertype =="Sub_Admin")
+
+                        <ul class="content-user">
+                        <li><a href="{{ URL::to('admin/dashboard') }}" title="{{trans('words.dashboard_text')}}"><i class="fa fa-database"></i>{{trans('words.dashboard_text')}}</a></li>   
+                        <li><a href="{{ URL::to('admin/logout') }}" title="{{trans('words.logout')}}"><i class="fa fa-sign-out-alt"></i>{{trans('words.logout')}}</a></li>
+                        </ul>
+
+                        @else
+                        <ul class="content-user">
+                        <li><a href="{{ URL::to('dashboard') }}" title="{{trans('words.dashboard_text')}}"><i class="fa fa-database"></i>{{trans('words.dashboard_text')}}</a></li>        
+                        <li><a href="{{ URL::to('profile') }}" title="{{trans('words.profile')}}"><i class="fa fa-user"></i>{{trans('words.profile')}}</a></li>    
+                        <li><a href="{{ URL::to('watchlist') }}" title="{{trans('words.my_watchlist')}}"><i class="fa fa-list"></i>{{trans('words.my_watchlist')}}</a></li>
+                        <li><a href="{{ URL::to('logout') }}" title="{{trans('words.logout')}}"><i class="fa fa-sign-out-alt"></i>{{trans('words.logout')}}</a></li>
+                        </ul>
+
+                        @endif
+                    </div>
+                </div>
+
+                @endif
                 <svg class="css-StyledEllipsisVertical e13wiwn64" width="1em" data-e2e="" height="1em"
                     viewBox="0 0 48 48" fill="#ffff" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rdive="evenodd" clip-rule="evenodd"
@@ -35,6 +80,86 @@
                 </svg>
                 </ul>
             </div>
+        </div>
 
     </nav>
 </header>
+
+<style>
+    .user-name{
+        display: flex;
+    }
+    .user-name img{
+        margin: 0 15px;
+        border-radius:50%;
+        width: 40px !important;
+        height:38px !important;
+    }
+    .logo-buy-service img{
+        color:yellow;
+    }
+    .name{
+        color:white;
+        display: flex;
+        align-items: center;
+    }
+    .name i{
+        color:white;
+    }
+    .user-info{
+        position: relative;
+    }
+    .content-user {
+        position: absolute;
+        top: 58%; /* Place it right below the user name section */
+        right: 0;
+        left:10px;
+        display:none;
+        background-color: #333; /* Adjust as needed */
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        min-width: 160px;
+    }
+    .content-user li {
+    list-style: none;
+    padding: 10px 20px;
+    }
+
+    .content-user li a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .content-user li:hover {
+        background-color: #444;
+    }
+
+    .user-name i {
+        transition: transform 0.2s;
+    }
+
+    .user-name.active i {
+        transform: rotate(180deg);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const userInfo = document.querySelector('.user-info');
+        const contentUser = document.querySelector('.content-user');
+        const userName = document.querySelector('.user-name');
+        userName.addEventListener('click', function () {
+            userName.classList.toggle('active');
+            contentUser.style.display = contentUser.style.display === 'block' ? 'none' : 'block';
+        });
+        document.addEventListener('click', function (e) {
+            if (!userInfo.contains(e.target)) {
+                contentUser.style.display = 'none';
+                userName.classList.remove('active');
+            }
+        });
+    });
+</script>
