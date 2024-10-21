@@ -45,8 +45,8 @@ class IndexController extends Controller
     public function index()
     {
         $data[] = [];
-        $data['upcoming_movies'] = Movies::where('upcoming',1)->orderby('id','DESC')->limit(10)->get();
-        $data['upcoming_series'] = Series::where('upcoming',1)->orderby('id','DESC')->limit(10)->get();
+        $data['upcoming_movies'] = Movies::where('upcoming',0)->orderby('id','DESC')->limit(10)->get();
+        $data['upcoming_series'] = Series::where('upcoming',0)->orderby('id','DESC')->limit(10)->get();
         return view('pages.index',compact('data'));
     }
     public function oldIndex()

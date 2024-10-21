@@ -26,7 +26,7 @@
                         </li>
                         <li class="mobile">
                             <div>
-                                <a class="nav-link" href="{{route("public.play.view",'')}}">
+                                <a class="nav-link" href="{{route("public.play-movies.view",['slug' => 'a', 'id'=> 'a'])}}">
                                     <div class="icon-md">
                                         <img src="{{asset('site_assets/icon/play-fill.svg')}}" alt="">
                                     </div>

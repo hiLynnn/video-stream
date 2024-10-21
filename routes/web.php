@@ -244,10 +244,12 @@ Route::group(['as' => 'public.'],function(){
 
     Route::get('old', 'IndexController@oldIndex')->name('old-index');
 
-    Route::group(['prefix' => 'play', 'as' => 'play.'],function(){
-        Route::get('{id}', 'PlayVideoController@view')->name('view');
+    Route::group(['prefix' => 'play-movies', 'as' => 'play-movies.'],function(){
+        Route::get('{slug}/{id}', 'PlayVideoController@view')->name('view');
     });
-
+    Route::group(['prefix' => 'play-series', 'as' => 'play-series.'],function(){
+        Route::get('{series_slug}/seasons/{season_slug}/{id}', 'PlayVideoController@viewSeries')->name('view');
+    });
     Route::group(['prefix' => 'category', 'as' => 'category.'],function(){
         Route::get('/', 'PlayVideoController@view')->name('index');
     });
