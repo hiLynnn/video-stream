@@ -40,12 +40,14 @@ crossorigin="anonymous"></script>
     <div class="close-btn">
         đóng
     </div>
+    @if(Auth::check())
     @if(Auth::User()->plan_id == 0)
     <div class="banner-ads-wr">
         <div class="container-ads">
             <img src="{{asset('site_assets/ads/banner-ads.jpg')}}" alt="">
         </div>
     </div>
+    @endif
     @endif
 </div>
 <script src="{{ URL::asset('site_assets/js/jquery-3.3.1.min.js') }}"></script>
