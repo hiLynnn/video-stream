@@ -16,7 +16,7 @@
                         </li>
                         <li>
                             <div>
-                                <a class="nav-link" href="{{route("public.category.index")}}">
+                                <a class="nav-link" href="/">
                                     <div class="icon-md">
                                         <img src="{{asset('site_assets/icon/category.svg')}}" alt="">
                                     </div>
