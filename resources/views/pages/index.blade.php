@@ -38,7 +38,7 @@
                     @endforeach
                 </div>
                 <div class="container-full">
-                    <a href="">See more</a>
+                    <a href="">Xem thêm</a>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
                     @endforeach
                 </div>
                 <div class="container-full">
-                    <a href="/category">See more</a>
+                    <a href="/category">Xem thêm</a>
                 </div>
             </div>
         </div>

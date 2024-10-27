@@ -14,7 +14,6 @@ use App\Watchlist;
 use App\Coupons;
 use App\UsersDeviceHistory;
 use Carbon\Carbon;
-
 use PayOS\PayOS;
 
 
@@ -191,36 +190,40 @@ class UserController extends Controller
         return view('pages.payment.plan',compact('plan_list'));
     }
 
-    public function createPaymentLink(Request $request) {
+    public function createPaymentLink(Request $request, $id) {
         if(!Auth::check())
         {
             \Session::flash('error_flash_message', trans('words.access_denied'));
             return redirect('login');            
         }
-        $YOUR_DOMAIN = route('public-payment-index');
-        $cancelUrl   = route('public.index');
-        $data = [
-            "orderCode" => intval(substr(strval(microtime(true) * 10000), -6)),
-            "amount" => 2000,
-            "description" => "Thanh toán đơn hàng",
-            "returnUrl" => $YOUR_DOMAIN,
-            "cancelUrl" => $cancelUrl,
-        ];
-        error_log($data['orderCode']);
-        Session::put('order_id', $data['orderCode']);
-        $PAYOS_CLIENT_ID = "23bd3644-9c91-42c9-bc12-2b0f9757ded6";
-        $PAYOS_API_KEY = "e44c05ab-ae6d-47a4-b184-e5c19fab6450";
-        $PAYOS_CHECKSUM_KEY = "726a194eb054027adecf5a08dfa24717fc480645f31c7c33bdecde39d6dd6ad6";
+        $plan = SubscriptionPlan::find($id);
+        if($plan){
+            $YOUR_DOMAIN = route('public-payment-index');
+            $cancelUrl   = route('public.index');
+            $data = [
+                "orderCode" => intval(substr(strval(microtime(true) * 10000), -6)),
+                "amount" => $plan->plan_price,
+                "description" => "Thanh toán đơn hàng",
+                "returnUrl" => $YOUR_DOMAIN,
+                "cancelUrl" => $cancelUrl,
+            ];
+            error_log($data['orderCode']);
+            Session::put('order_id', $data['orderCode']);
+            $PAYOS_CLIENT_ID = "23bd3644-9c91-42c9-bc12-2b0f9757ded6";
+            $PAYOS_API_KEY = "e44c05ab-ae6d-47a4-b184-e5c19fab6450";
+            $PAYOS_CHECKSUM_KEY = "726a194eb054027adecf5a08dfa24717fc480645f31c7c33bdecde39d6dd6ad6";
+    
+            $payOS = new PayOS($PAYOS_CLIENT_ID, $PAYOS_API_KEY, $PAYOS_CHECKSUM_KEY);
+            try {
+                $response = $payOS->createPaymentLink($data);
+                // $response = $payOS->getPaymentLinkInformation(615638);
+                // dd($response);
+                return redirect($response['checkoutUrl']);
+                // return $response;
+            } catch (\Throwable $th) {
+                return $th->getMessage();
+            }
 
-        $payOS = new PayOS($PAYOS_CLIENT_ID, $PAYOS_API_KEY, $PAYOS_CHECKSUM_KEY);
-        try {
-            $response = $payOS->createPaymentLink($data);
-            // $response = $payOS->getPaymentLinkInformation(615638);
-            // dd($response);
-            return redirect($response['checkoutUrl']);
-            // return $response;
-        } catch (\Throwable $th) {
-            return $th->getMessage();
         }
     }
     public function successPayment(Request $request){

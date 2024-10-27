@@ -10,7 +10,7 @@
                                     <div class="icon-md">
                                         <img src="{{asset('site_assets/icon/home.svg')}}" alt="">
                                     </div>
-                                    <span class="main-nav-text">Home</span>
+                                    <span class="main-nav-text">Trang chủ</span>
                                 </a>
                             </div>
                         </li>
