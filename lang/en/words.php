@@ -816,7 +816,8 @@ return [
     'edit_plan' => 'Chỉnh sửa gói',
     'plan_name' => 'Tên gói',
     'price' => 'Giá',
-
+    'update' => 'Cập nhật',
+    'profile_image' => 'Ảnh đại diện',
     'filter_by_gateway' => 'Lọc theo cổng thanh toán',
     'search_by_payment_id_email' => 'Tìm kiếm theo ID thanh toán hoặc email...',
     'export_transactions' => 'Xuất giao dịch',

@@ -20,7 +20,7 @@
                                     <div class="icon-md">
                                         <img src="{{asset('site_assets/icon/category.svg')}}" alt="">
                                     </div>
-                                    <span class="main-nav-text">Category</span>
+                                    <span class="main-nav-text">Danh mục</span>
                                 </a>
                             </div>
                         </li>
@@ -39,7 +39,7 @@
                                     <div class="icon-md">
                                         <img src="{{asset('site_assets/icon/user.svg')}}" alt="">
                                     </div>
-                                    <span class="main-nav-text">My Account</span>
+                                    <span class="main-nav-text">Tài Khoản</span>
                                 </a>
                             </div>
                         </li>
@@ -49,7 +49,7 @@
                                     <div class="icon-md">
                                         <img src="{{asset('site_assets/icon/payment.svg')}}" alt="">
                                     </div>
-                                    <span class="main-nav-text">Payment</span>
+                                    <span class="main-nav-text">Gói dịch vụ</span>
                                 </a>
                             </div>
                         </li>

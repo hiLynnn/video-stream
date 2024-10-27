@@ -336,14 +336,20 @@
             max-width: 1440px;
             background-color: white;
             display: flex;
+            gap: 10px;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            .banner-ads-wr{
+                height: 80px;
+            }
             .component-video-reel{
-                width: 100%;
+                width: 90%;
                 gap: 10px;
                 display: flex;
+                border-radius: 15px;
                 justify-content: center;
-                height: calc(100% - 20px);
+                height: calc(100% - 80px);
                 position: relative;
                 .swiper-reel{
                     height: 100%;
@@ -416,6 +422,10 @@
                                 }
 
                             }
+                            .banner-ads-wr-2{
+                                width: 100px;
+                                background-color: #a5cbef;
+                            }
                         }
                     }
                 }
@@ -452,6 +462,9 @@
                                             height: 35px;
                                         }
                                     }
+                                }
+                                .banner-ads-wr-2{
+                                    display: none;
                                 }
                             }
                         }

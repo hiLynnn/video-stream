@@ -44,8 +44,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-xl-12"> 
-        <h2>{{trans('words.subscription_plan')}} </h2>
-        
+        <h2>{{trans('words.subscription_plan')}} </h2>      
         <nav id="breadcrumbs">
             <ul>
               <li><a href="{{ URL::to('/') }}" title="{{trans('words.home')}}">{{trans('words.home')}}</a></li>
@@ -93,9 +92,10 @@
 
                    $final_plan_price = $plan_data->plan_price - $discount_price_less;
 
-              echo $final_plan_price ?>
+              echo number_format($final_plan_price, 0, ',', '.'); 
+              ?>
               @else
-                {{$plan_data->plan_price}} 
+                {{ number_format($plan_data->plan_price, 0, ',', '.') }} VND
               @endif
               
             </h1>
@@ -160,12 +160,12 @@
     <div class="card shadow p-4">
         <div class="text-center">
             <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
-            <h2 class="mt-3">Payment Successful!</h2>
-            <p class="lead">Thank you for your purchase. Your payment was processed successfully.</p>
+            <h2 class="mt-3">Thanh toán thành công!!</h2>
+            <p class="lead">Cảm ơn bạn đã thanh toán. Tài khoản bạn đã nâng cấp thành công.</p>
             <hr>
             <div class="order-details mt-4">
                 <button class="btn btn-primary mt-3" onclick="window.location.href='/your-dashboard'">
-                    Go to Dashboard
+                    Về trang chủ
                 </button>
             </div>
         </div>
