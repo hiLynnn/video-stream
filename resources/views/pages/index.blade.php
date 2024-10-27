@@ -3,14 +3,12 @@
     <div class="page-common">
         @include("partials.header")
         <div class="area-body-home container-page">
-            @if(Auth::check())
-                @if(Auth::User()->plan_id == 0)
+        @if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
             <div class="banner-ads-wr">
                 <div class="container-ads">
                     <img src="{{asset('site_assets/ads/banner-ads.jpg')}}" alt="">
                 </div>
             </div>
-            @endif
         @endif
 
             <div class="category-component">

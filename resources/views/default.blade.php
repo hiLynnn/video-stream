@@ -37,8 +37,7 @@ crossorigin="anonymous"></script>
 <body>
 
 @yield("content")
-@if(Auth::check())
-@if(Auth::User()->plan_id == 0)
+@if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
 <div class="ads-script">
     <div class="close-btn">
         đóng
@@ -49,7 +48,6 @@ crossorigin="anonymous"></script>
         </div>
     </div>
 </div>
-@endif
 @endif
 <script src="{{ URL::asset('site_assets/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('site_assets/js/jquery.easing.min.js') }}"></script>
