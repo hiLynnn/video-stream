@@ -440,6 +440,9 @@
             .area-video{
                 width: 100%;
                 height: calc(100% - 48px);
+                .banner-ads-wr{
+                    display: none;
+                }
                 .component-video-reel{
                     height: 100%;
                     width: 100%;
