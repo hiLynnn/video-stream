@@ -73,10 +73,12 @@
                         <div style="display:flex;justify-content:center;">
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
                                 crossorigin="anonymous"></script>
+                            <!-- TEST2 -->
                             <ins class="adsbygoogle"
-                                style="display:inline-block;width:728px;height:80px !important"
+                                style="display:block"
                                 data-ad-client="ca-pub-7220843961648970"
-                                data-ad-slot="6041774171">
+                                data-ad-slot="9408765007"
+                            >
                             </ins>
                             <script>
                                 (adsbygoogle = window.adsbygoogle || []).push({});
