@@ -6,7 +6,7 @@ use Auth;
 use App\User;
 use App\Movies;
 use App\Genres;
-use App\Language; 
+use App\Language;
 use App\HomeSection;
 use App\RecentlyWatched;
 use App\Slider;
@@ -16,47 +16,47 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use Intervention\Image\Facades\Image; 
+use Intervention\Image\Facades\Image;
 
 use Session;
 
 class MoviesController extends Controller
 {
-	  
+
     public function movies()
-    {   
+    {
         if(Auth::check())
-        {             
-            if(Auth::user()->usertype!="Admin" AND Auth::user()->usertype!="Sub_Admin")  
+        {
+            if(Auth::user()->usertype!="Admin" AND Auth::user()->usertype!="Sub_Admin")
            {
               if(user_device_limit_reached(Auth::user()->id,Auth::user()->plan_id))
-              {                 
+              {
                   return redirect('dashboard');
               }
            }
         }
 
         $slider= Slider::where('status',1)->whereRaw("find_in_set('Movies',slider_display_on)")->orderby('id','DESC')->get();
-        
+
         $pagination_limit=18;
 
         if(isset($_GET['lang_id']))
-        {   
+        {
             $movie_lang_id = $_GET['lang_id'];
 
             $movies_list = Movies::where('status',1)->where('upcoming',0)->where('movie_lang_id',$movie_lang_id)->orderBy('id','DESC')->paginate($pagination_limit);
             $movies_list->appends(\Request::only('lang_id'))->links();
-        } 
+        }
         else if(isset($_GET['genre_id']))
-        {   
+        {
             $movie_genre_id = $_GET['genre_id'];
 
             $movies_list = Movies::where('status',1)->where('upcoming',0)->whereRaw("find_in_set('$movie_genre_id',movie_genre_id)")->orderBy('id','DESC')->paginate($pagination_limit);
             $movies_list->appends(\Request::only('genre_id'))->links();
-        } 
+        }
     	else if(isset($_GET['filter']))
         {
-            $keyword = $_GET['filter'];  
+            $keyword = $_GET['filter'];
 
             if($keyword=='old')
             {
@@ -78,29 +78,29 @@ class MoviesController extends Controller
                 $movies_list = Movies::where('status',1)->where('upcoming',0)->orderBy('id','DESC')->paginate($pagination_limit);
                 $movies_list->appends(\Request::only('filter'))->links();
             }
-            
+
         }
         else
         {
-            $movies_list = Movies::where('status',1)->where('upcoming',0)->orderBy('id','DESC')->paginate($pagination_limit);   
-        }   
-            
+            $movies_list = Movies::where('status',1)->where('upcoming',0)->orderBy('id','DESC')->paginate($pagination_limit);
+        }
+
        return view('pages.movies.list',compact('slider','movies_list'));
-         
+
     }
- 
+
     public function movies_details($slug,$id)
     {
         if(Auth::check())
-        {             
-            if(Auth::user()->usertype!="Admin" AND Auth::user()->usertype!="Sub_Admin")  
+        {
+            if(Auth::user()->usertype!="Admin" AND Auth::user()->usertype!="Sub_Admin")
            {
               if(user_device_limit_reached(Auth::user()->id,Auth::user()->plan_id))
-              {                 
+              {
                   return redirect('dashboard');
               }
            }
-        } 
+        }
 
        $movies_info = Movies::where('status',1)->where('id',$id)->first();
 
@@ -109,7 +109,7 @@ class MoviesController extends Controller
          abort(404, 'Unauthorized action.');
        }
 
-       $related_movies_list = Movies::where('status',1)->where('id','!=',$id)->where('movie_lang_id',$movies_info->movie_lang_id)->orderBy('id','DESC')->take(10)->get(); 
+       $related_movies_list = Movies::where('status',1)->where('id','!=',$id)->where('movie_lang_id',$movies_info->movie_lang_id)->orderBy('id','DESC')->take(10)->get();
 
        return view('pages.movies.details',compact('movies_info','related_movies_list'));
 
@@ -118,11 +118,11 @@ class MoviesController extends Controller
     public function movies_watch($slug,$id)
     {
         if(Auth::check())
-        {             
-            if(Auth::user()->usertype!="Admin" AND Auth::user()->usertype!="Sub_Admin")  
+        {
+            if(Auth::user()->usertype!="Admin" AND Auth::user()->usertype!="Sub_Admin")
            {
               if(user_device_limit_reached(Auth::user()->id,Auth::user()->plan_id))
-              {                 
+              {
                   return redirect('dashboard');
               }
            }
@@ -141,7 +141,7 @@ class MoviesController extends Controller
             if(Auth::check())
             {
                 if(Auth::User()->usertype =="User")
-                {   
+                {
                     $user_id=Auth::User()->id;
 
                     $user_info = User::findOrFail($user_id);
@@ -149,7 +149,7 @@ class MoviesController extends Controller
                     $user_plan_exp_date=$user_info->exp_date;
 
                     if($user_plan_id==0 OR strtotime(date('m/d/Y'))>$user_plan_exp_date)
-                    {      
+                    {
                         return redirect('membership_plan');
                     }
                 }
@@ -173,12 +173,12 @@ class MoviesController extends Controller
              $recently_video_count = RecentlyWatched::where('video_type','Movies')->where('user_id',$current_user_id)->where('video_id',$video_id)->count();
 
             if($recently_video_count <=0)
-            {   
+            {
                 //Current user recently count
                 $current_user_video_count = RecentlyWatched::where('user_id',$current_user_id)->count();
 
                 if($current_user_video_count == 10)
-                {   
+                {
                     DB::table("recently_watched")
                     ->where("user_id", "=", $current_user_id)
                     ->orderBy("id", "ASC")
@@ -198,15 +198,15 @@ class MoviesController extends Controller
                     $video_recent_obj->user_id = $current_user_id;
                     $video_recent_obj->video_id = $video_id;
                     $video_recent_obj->save();
-                }                
+                }
             }
         }
 
         //View Update
         $v_id=$movies_info->id;
-        $video_obj = Movies::findOrFail($v_id);        
+        $video_obj = Movies::findOrFail($v_id);
         // dd($video_obj);
-        $video_obj->increment('views');     
+        $video_obj->increment('views');
         $video_obj->save();
 
         if($movies_info->upcoming==1)
@@ -217,8 +217,6 @@ class MoviesController extends Controller
         {
             return view('pages.movies.watch',compact('movies_info','related_movies_list'));
         }
- 
+
     }
-        
-            
 }

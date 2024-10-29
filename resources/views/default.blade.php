@@ -36,7 +36,6 @@ crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="ca-pub-7220843961648970">
 </head>
 <body>
-
 @yield("content")
 @if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
 <div class="ads-script">

@@ -1,76 +1,91 @@
 @extends('default')
+@php
+    $arr = [
+        '',''
+    ];
+@endphp
+
 @section('content')
+
     <div class="page-common">
         @include("partials.header")
-        <div class="area-body-home container-page">
-        @if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
-            <div class="banner-ads-wr">
-                <div class="container-ads">
-                    <img src="{{asset('site_assets/ads/banner-ads.jpg')}}" alt="">
+        <div class="body-container">
+            @include("pages.new-home.menu")
+            <div class="area-video">
+                <div align="center">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
+                        crossorigin="anonymous"></script>
+                    <!-- Test -->
+                    <ins class="adsbygoogle"
+                        style="display:inline-block;width:728px;height:80px"
+                        data-ad-client="ca-pub-7220843961648970"
+                        data-ad-slot="6041774171"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    <!-- <amp-ad width="100vw" height="80px"
+                        type="adsense"
+                        data-ad-client="ca-pub-7220843961648970"
+                        data-ad-slot="6041774171"
+                        data-auto-format="rspv"
+                        data-full-width="">
+                    <div overflow=""></div>
+                    </amp-ad> -->
                 </div>
-            </div>
-        @endif
-
-            <div class="category-component">
-                <div class="heading">
-                    <h3 class="caption">
-                        {{__('Movies Up coming')}}
-                    </h3>
-                </div>
-                <div class="list-movies">
-                    @foreach ($data['upcoming_movies'] ?? [] as $index => $movie)
-                        {{-- @dd($movie) --}}
-                        <div class="movie-item-item">
-                            <a href="{{route('public.play-movies.view',['slug' => Arr::get($movie,'video_slug',''), 'id' => Arr::get($movie,'id','')])}}" >
-                                <div class="thumb">
-                                    <img src="{{Arr::get($movie,'video_image','')}}" alt="">
+                <div class="component-video-reel">
+                    <div class="swiper-reel">
+                        <div class="swiper-wrapper">
+                            @foreach ($arr as $index => $item)
+                                <div class="swiper-slide">
+                                    <div class="slide-item-wr">
+                                        <div class="component-video-element">
+                                            <video autoplay="autoplay" controls>
+                                                <source src="{{ asset($movies_info->video_url) }}" type="video/mp4"/>
+                                            </video>
+                                        </div>
+                                        <div class="button-group-bar">
+                                            <div class="btn-grp-item">
+                                                <div class="btn-icon-circle">
+                                                    <img src="{{asset('site_assets/icon/heart-no-fill.svg')}}" alt="icon" class="item-no-active">
+                                                    <img src="{{asset('site_assets/icon/heart-fill.svg')}}" alt="icon" class="item-active">
+                                                </div>
+                                                <span class="title">357.8k</span>
+                                            </div>
+                                            <div class="btn-grp-item">
+                                                <div class="btn-icon-circle">
+                                                    <img src="{{asset('site_assets/icon/comment.svg')}}" alt="icon" >
+                                                </div>
+                                                <span class="title">357.8k</span>
+                                            </div>
+                                            {{-- <div class="btn-grp-item">
+                                                <div class="btn-icon-circle">
+                                                    <img src="{{asset('site_assets/icon/book.svg')}}" alt="icon" >
+                                                </div>
+                                            </div> --}}
+                                            <div class="btn-grp-item">
+                                                <div class="btn-icon-circle">
+                                                    <img src="{{asset('site_assets/icon/share.svg')}}" alt="icon" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="banner-ads-wr-2">
+                                            <amp-ad
+                                                type="adsense"
+                                                data-ad-client="ca-pub-7220843961648970"
+                                                data-ad-slot="6041774171"
+                                                data-auto-format="rspv"
+                                                data-full-width="">
+                                            <div overflow=""></div>
+                                            </amp-ad>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="play-icon">
-                                    <img src="{{asset('site_assets/icon/circle-play.svg')}}" alt="">
-                                </div>
-                                <div class="title">
-                                    <span>{{Arr::get($movie,'video_title','')}}</span>
-                                </div>
-                            </a>
+                            @endforeach
                         </div>
-                    @endforeach
+                    </div>
                 </div>
-                <div class="container-full">
-                    <a href="">Xem thêm</a>
-                </div>
-            </div>
-
-            <div class="category-component">
-                <div class="heading">
-                    <h3 class="caption">
-                        {{__('Series Up coming')}}
-                    </h3>
-                </div>
-                <div class="list-movies">
-                    @foreach ($data['upcoming_series'] ?? [] as $index => $sery)
-                        <div class="movie-item-item">
-                            <a href="{{ route('public.play-movies.view', ['slug' => Arr::get($sery,'series_slug',''), 'id' =>  Arr::get($sery,'id','')]) }}" >
-                                <div class="thumb">
-                                    <img src="{{Arr::get($sery,'series_poster','')}}" alt="">
-                                </div>
-                                <div class="play-icon">
-                                    <img src="{{asset('site_assets/icon/circle-play.svg')}}" alt="">
-                                </div>
-                                <div class="title">
-                                    <span>{{Arr::get($sery,'series_name','')}}</span>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="container-full">
-                    <a href="/category">Xem thêm</a>
-                </div>
-            </div>
-        </div>
-        <div class="common-footer">
-            <div class="container-page">
-
             </div>
         </div>
     </div>
