@@ -354,7 +354,7 @@
                     display: flex;
                     border-radius: 15px;
                     justify-content: center;
-                    height: calc(100% - 80px);
+                    height: calc(100%);
                     position: relative;
                     .swiper-reel{
                         height: 100%;
@@ -697,4 +697,12 @@
         background-color: white;
         cursor: pointer;
     }
+}
+.ads-banner{
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    cursor: pointer;
 }

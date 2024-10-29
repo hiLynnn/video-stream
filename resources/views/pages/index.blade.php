@@ -11,8 +11,8 @@
         @include("partials.header")
         <div class="body-container">
             @include("pages.new-home.menu")
-            <div class="area-video">
-                <div align="center" style="height:80px !important">
+            <div class="ads-banner">
+                <div>
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
                         crossorigin="anonymous"></script>
                     <ins class="adsbygoogle"
@@ -24,16 +24,18 @@
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
                 </div>
+            </div>
+            <div class="area-video">
                 <div class="wr-component-video-reel">
                     <div class="component-video-reel">
                         <div class="swiper-reel">
                             <div class="swiper-wrapper">
-                                @foreach ($arr as $index => $item)
+                                @foreach ($data['upcoming_movies'] as $index => $item)
                                     <div class="swiper-slide">
                                         <div class="slide-item-wr">
                                             <div class="component-video-element">
                                                 <video autoplay="autoplay" controls>
-                                                    <source src="{{ asset($movies_info->video_url) }}" type="video/mp4"/>
+                                                    <source src="{{ asset($item->video_url) }}" type="video/mp4"/>
                                                 </video>
                                             </div>
                                             <div class="button-group-bar">
