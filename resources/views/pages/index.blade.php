@@ -43,7 +43,6 @@
                                                     preload="auto"
                                                     poster="{{ asset($item->video_image_thumb) }}"
                                                     data-setup="{}"
-                                                    autoplay="autoplay"
                                                 >
                                                     <source src="{{ asset($item->video_url) }}" type="video/mp4"/>
                                                 </video>
