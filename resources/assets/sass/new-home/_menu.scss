@@ -449,6 +449,7 @@
                     display: none;
                 }
                 .wr-component-video-reel{
+                    height: calc(100% - 95px);
                     .component-video-reel{
                         height: 100%;
                         width: 100%;
