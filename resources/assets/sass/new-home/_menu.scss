@@ -367,7 +367,7 @@
                                 height: 100%;
                                 gap: 10px;
                                 .component-video-element{
-                                    width: 100%area-video;
+                                    width: calc(100% - 48px);
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
