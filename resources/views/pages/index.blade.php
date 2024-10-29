@@ -34,7 +34,15 @@
                                     <div class="swiper-slide">
                                         <div class="slide-item-wr">
                                             <div class="component-video-element">
-                                                <video autoplay="autoplay" controls>
+                                                <video
+                                                    id="my-video"
+                                                    class="video-js"
+                                                    controls
+                                                    preload="auto"
+                                                    poster="{{ asset($item->video_image_thumb) }}"
+                                                    data-setup="{}"
+                                                    autoplay="autoplay"
+                                                >
                                                     <source src="{{ asset($item->video_url) }}" type="video/mp4"/>
                                                 </video>
                                             </div>

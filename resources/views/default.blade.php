@@ -21,6 +21,7 @@
 <link rel="canonical" href="@yield('head_url', url('/'))">
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&display=swap" rel="stylesheet">
 <link rel="icon" href="{{ URL::asset('/'.getcong('site_favicon')) }}">
+<link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="{{ URL::asset('build/css/common.css') }}">
@@ -40,6 +41,7 @@ crossorigin="anonymous"></script>
 
 <script src="{{ URL::asset('site_assets/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('site_assets/js/jquery.easing.min.js') }}"></script>
+<script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
 <script src="{{ URL::asset('build/js/common.js') }}"></script>
 </body>
 </html>
