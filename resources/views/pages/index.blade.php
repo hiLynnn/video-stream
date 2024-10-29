@@ -69,13 +69,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ads-banner-vetical">
+                    <div>
                         <div style="display:flex;justify-content:center;">
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
                                 crossorigin="anonymous"></script>
                             <!-- TEST2 -->
                             <ins class="adsbygoogle"
-                                style="display:block"
+                                style="display:block;width:100px;height:auto !important;z-index:1000;"
                                 data-ad-client="ca-pub-7220843961648970"
                                 data-ad-slot="9408765007"
                             >
