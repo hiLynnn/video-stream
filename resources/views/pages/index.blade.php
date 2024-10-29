@@ -99,5 +99,4 @@
         </div>
     </div>
 @endsection
-                                      <img src="{{asset('site_assets/icon/heart-no-fill.svg')}}" alt="icon" class="item-no-active">
                   
