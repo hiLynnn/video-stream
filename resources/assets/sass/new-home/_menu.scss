@@ -705,6 +705,9 @@
     width: 100%;
     z-index: 999;
     cursor: pointer;
+    @include maxWidth(991){
+        top: 0px;
+    }
 }
 .ads-banner-vetical {
     position: fixed;
