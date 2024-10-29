@@ -332,7 +332,7 @@
             }
         }
         .area-video{
-            height: calc(100vh - 70px) !important;
+            height: calc(100vh - 70px);
             width: calc(100% - $widthSideBar);
             max-width: 1440px;
             background-color: white;
