@@ -51,7 +51,8 @@
                                             <div class="button-group-bar">
                                                 <div class="btn-grp-item">
                                                     <div class="btn-icon-circle">
-                                                        <img src="{{asset('site_assets/icon/heart-no-fill.svg')}}" alt="icon" class="item-active">
+                                                        <img src="{{asset('site_assets/icon/heart-no-fill.svg')}}" alt="icon" class="item-no-active">
+                                                        <img src="{{asset('site_assets/icon/heart-fill.svg')}}" alt="icon" class="item-active">
                                                     </div>
                                                     <span class="title">357.8k</span>
                                                 </div>
@@ -101,4 +102,5 @@
         </div>
     </div>
 @endsection
+
                   
