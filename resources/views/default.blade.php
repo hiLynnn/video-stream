@@ -30,6 +30,7 @@
 <title>@yield('head_title', getcong('site_name'))</title>
 
 <!-- ads -->
+<script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
 crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="ca-pub-7220843961648970">
