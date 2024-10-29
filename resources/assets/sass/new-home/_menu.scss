@@ -349,7 +349,7 @@
                 height: 100%;
                 display: flex;
                 .component-video-reel{
-                    width: calc(100% - 100px);
+                    width: 100%;
                     gap: 10px;
                     display: flex;
                     border-radius: 15px;
@@ -703,6 +703,15 @@
     top: 70px;
     left: 0;
     width: 100%;
+    z-index: 999;
+    cursor: pointer;
+}
+.ads-banner-vetical {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    height: 100%;
+    width: 100px;
     z-index: 999;
     cursor: pointer;
 }

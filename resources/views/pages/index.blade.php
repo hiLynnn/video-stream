@@ -12,7 +12,7 @@
         <div class="body-container">
             @include("pages.new-home.menu")
             <div class="ads-banner">
-                <div>
+                <div style="display:flex;justify-content:center;">
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
                         crossorigin="anonymous"></script>
                     <ins class="adsbygoogle"
@@ -69,15 +69,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="banner-ads-wr-2">
-                        <amp-ad
-                            type="adsense"
-                            data-ad-client="ca-pub-7220843961648970"
-                            data-ad-slot="6041774171"
-                            data-auto-format="rspv"
-                            data-full-width="">
-                        <div overflow=""></div>
-                        </amp-ad>
+                    <div class="ads-banner-vetical">
+                        <div style="display:flex;justify-content:center;">
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
+                                crossorigin="anonymous"></script>
+                            <ins class="adsbygoogle"
+                                style="display:inline-block;width:728px;height:80px !important"
+                                data-ad-client="ca-pub-7220843961648970"
+                                data-ad-slot="6041774171">
+                            </ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
                     </div>
                 </div>
             </div>
