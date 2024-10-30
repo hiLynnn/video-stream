@@ -79,11 +79,10 @@
                         </div>
                     </div>
                     @if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
-                    <div style="position:fixed;width:100px!important;top:70px;right:0;height: 100% !important;z-index:1000;">
+                    <!-- <div style="position:fixed;width:100px!important;top:70px;right:0;height: 100% !important;z-index:1000;">
                         <div style="display:flex;justify-content:center;">
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
                                 crossorigin="anonymous"></script>
-                            <!-- TEST2 -->
                             <ins class="adsbygoogle"
                                 style="display:block;width:100px !important;height: 100% !important;z-index:1000;position:fixed"
                                 data-ad-client="ca-pub-7220843961648970"
@@ -94,7 +93,21 @@
                                 (adsbygoogle = window.adsbygoogle || []).push({});
                             </script>
                         </div>
-                    </div>
+                    </div> -->
+                        <div class="ads-banner">
+                            <div style="display:flex;justify-content:center;">
+                                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
+                                    crossorigin="anonymous"></script>
+                                <ins class="adsbygoogle"
+                                    style="display:inline-block;width:728px;height:80px !important"
+                                    data-ad-client="ca-pub-7220843961648970"
+                                    data-ad-slot="6041774171">
+                                </ins>
+                                <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>
