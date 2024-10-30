@@ -99,9 +99,10 @@
                                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
                                     crossorigin="anonymous"></script>
                                 <ins class="adsbygoogle"
-                                    style="display:inline-block;width:728px;height:80px !important"
+                                    style="display:block;width:100px !important;height: 100% !important;z-index:1000;position:fixed"
                                     data-ad-client="ca-pub-7220843961648970"
-                                    data-ad-slot="6041774171">
+                                    data-ad-slot="9408765007"
+                                >
                                 </ins>
                                 <script>
                                     (adsbygoogle = window.adsbygoogle || []).push({});
