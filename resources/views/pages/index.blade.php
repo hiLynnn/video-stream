@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     @if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
-                    <div class="ads-banner-vetical">
+                    <!-- <div class="ads-banner-vetical">
                         <div style="display:flex;justify-content:center;">
                             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
                                 crossorigin="anonymous"></script>
@@ -94,7 +94,7 @@
                                 (adsbygoogle = window.adsbygoogle || []).push({});
                             </script>
                         </div>
-                    </div>
+                    </div> -->
                     @endif
                 </div>
             </div>
