@@ -81,11 +81,11 @@
                     @if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
                         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
                             crossorigin="anonymous"></script>
-                        <!-- TEST2 -->
                         <ins class="adsbygoogle"
-                            style="display:inline-block;width:120px;height:1000px"
+                            style="display:inline-block;width:120px;height:1000px !important;positon:fixed !important;"
                             data-ad-client="ca-pub-7220843961648970"
-                            data-ad-slot="9408765007"></ins>
+                            data-ad-slot="6041774171">
+                        </ins>
                         <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
