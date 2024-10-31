@@ -79,22 +79,16 @@
                         </div>
                     </div>
                     @if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
-                    <!-- <div class="ads-banner-vetical">
-                        <div style="display:flex;justify-content:center;">
-                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
-                                crossorigin="anonymous"></script>
-                            
-                            <ins class="adsbygoogle"
-                                style="display:block;width:100px !important;height: 100% !important;z-index:1000;position:fixed"
-                                data-ad-client="ca-pub-7220843961648970"
-                                data-ad-slot="9408765007"
-                            >
-                            </ins>
-                            <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                        </div>
-                    </div> -->
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
+                            crossorigin="anonymous"></script>
+                        <!-- TEST2 -->
+                        <ins class="adsbygoogle"
+                            style="display:inline-block;width:120px;height:1000px"
+                            data-ad-client="ca-pub-7220843961648970"
+                            data-ad-slot="9408765007"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     @endif
                 </div>
             </div>
