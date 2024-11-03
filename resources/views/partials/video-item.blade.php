@@ -4,9 +4,10 @@
             <video
                 id="my-video-{{$item->id}}"
                 data-origin-id="my-video-{{$item->id}}"
-                class="video-js"
+                class="video-js video-js-default vjs-default-skin"
                 controls
                 preload="auto"
+                playsinline
                 poster="{{ asset($item->video_image_thumb) }}"
                 data-setup="{}"
             >

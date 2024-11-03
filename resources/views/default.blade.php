@@ -23,6 +23,10 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&display=swap" rel="stylesheet">
 <link rel="icon" href="{{ URL::asset('/'.getcong('site_favicon')) }}">
 <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+<link
+  href="https://unpkg.com/@videojs/themes@1/dist/city/index.css"
+  rel="stylesheet"
+/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="{{ URL::asset('build/css/common.css') }}">

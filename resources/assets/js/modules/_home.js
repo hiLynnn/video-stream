@@ -17,8 +17,10 @@ class Home{
         const _main = this;
         ids.forEach(function(item,index){
             const videoId = `my-video-${item}`;
+            const player =  videojs(videoId);
+
             _main.listVideoIds.push(
-                { id: videoId,  player : videojs(videoId, {}) }
+                { id: videoId, player : player }
             );
         })
     }
