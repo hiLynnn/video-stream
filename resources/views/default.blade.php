@@ -14,6 +14,7 @@
 <meta property="og:url" content="@yield('head_url', url('/'))" />
 <meta property="og:image:width" content="1024" />
 <meta property="og:image:height" content="1024" />
+<meta name="csrf-token" content="{{csrf_token()}}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="@yield('head_image', URL::asset('/'.getcong('site_logo')))">
 <meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=1" name="viewport">

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\API\MainAPIController;
+use App\Http\Controllers\API\VideoApiController;
 use App\Http\Controllers\PlayVideoController;
 use Illuminate\Support\Facades\Route;
 
@@ -431,6 +433,9 @@ Route::any('app_mollie_failed', function () {
     return view('app.app_failed');
 });
 
+Route::group(['prefix' => 'api/v1','namespace' => 'API', 'as'=> 'api.'], function(){
+    Route::get('video', [VideoApiController::class,'index'])->name('api.video.index');
+});
 
 //Clear Cache
 Route::get('/clear-cache', function() {
