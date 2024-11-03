@@ -3,6 +3,7 @@
         <div class="component-video-element">
             <video
                 id="my-video-{{$item->id}}"
+                data-origin-id="my-video-{{$item->id}}"
                 class="video-js"
                 controls
                 preload="auto"
