@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    @if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
+                    <!-- @if(!Auth::check() || (Auth::check() && Auth::User()->plan_id == 0))
                         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7220843961648970"
                             crossorigin="anonymous"></script>
                         <ins class="adsbygoogle"
@@ -42,7 +42,7 @@
                         <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
-                    @endif
+                    @endif -->
                 </div>
             </div>
         </div>

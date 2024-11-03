@@ -4683,3 +4683,269 @@ header .modal-body .btn.btn-primary {
 .player_prev_next:hover a{
 	color: #fff;
 }
+
+.page-common {
+    display: block;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-common #main-header {
+    width: 100%;
+    background: rgb(18, 18, 18);
+    display: flex;
+    box-shadow: rgba(255, 255, 255, 0.12) 0px 1px 1px;
+    height: 70px; /* Giả sử $menuHeight = 70px */
+    align-items: center;
+    background: rgb(18, 18, 18);
+    z-index: 3000;
+}
+
+@media (max-width: 991px) {
+    .page-common #main-header {
+        display: none;
+    }
+}
+
+.page-common .body-container {
+    display: flex;
+    background-color: rgb(18, 18, 18);
+    width: 100%;
+    height: calc(100vh - 70px); /* Giả sử $menuHeight = 70px */
+    overflow-y: hidden;
+}
+
+.page-common .body-container .side-nav-container {
+    position: relative;
+    height: 100%;
+    width: 250px; /* Giả sử $widthSideBar = 250px */
+}
+
+.page-common .body-container .side-nav-container .scroll-container {
+    overflow: hidden auto;
+    overscroll-behavior-y: contain;
+    perspective: 1px;
+    transform-style: preserve-3d;
+    perspective-origin: right top;
+    top: 70px; /* Giả sử $menuHeight = 70px */
+    bottom: 0px;
+    width: 250px; /* Giả sử $widthSideBar = 250px */
+    background: rgb(18, 18, 18);
+    position: fixed;
+    z-index: 99;
+}
+
+.page-common .body-container .side-nav-container .scroll-container::-webkit-scrollbar {
+    height: 7px;
+    width: 7px;
+}
+
+.page-common .body-container .side-nav-container .scroll-container::-webkit-scrollbar-thumb {
+    background: rgb(255, 59, 92);
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.page-common .body-container .side-nav-container .scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper {
+    flex-shrink: 0;
+    padding: 20px 0px 26px 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 100%;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .nav-main-container {
+    margin-bottom: 8px;
+    padding: 0px;
+}
+
+@media (max-width: 991px) {
+    .page-common .body-container .side-nav-container .scroll-container .scroll-wrapper {
+        padding: 0px 15px;
+    }
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .nav-main-container .main-nav {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .nav-main-container .main-nav .nav-link {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 32px;
+    transition: background 200ms ease-in-out 0s;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .nav-main-container .main-nav .nav-link .main-nav-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    margin-left: 8px;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .nav-main-container .main-nav .nav-link .main-nav-text:hover {
+    color: rgb(255, 59, 92);
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .frame-container {
+    position: relative;
+    padding: 20px 8px 24px;
+    margin: 0px;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .frame-container::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    left: 8px;
+    right: 8px;
+    background: rgba(22, 24, 35, 0.12);
+    transform: scaleY(0.5);
+    top: 0px;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .frame-container .login-hint {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    line-height: 21px;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .frame-container .button-styled-login {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    color: rgb(255, 59, 92);
+    border-color: rgb(255, 59, 92);
+    background-color: rgba(255, 255, 255, 0.08);
+    min-width: 168px;
+    min-height: 48px;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 600;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
+    user-select: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .footer-container {
+    position: relative;
+    padding-top: 16px;
+    padding-left: 8px;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .footer-container::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 0px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    transform: scaleY(0.5);
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .footer-container .link-list-header {
+    font-size: 15px;
+    line-height: 22px;
+    margin-top: 0px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+}
+
+.page-common .body-container .side-nav-container .scroll-container .scroll-wrapper .footer-container .copy-right {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    display: inline-block;
+    margin-right: 6px;
+    margin-top: 5px;
+}
+
+.page-common .body-container .area-video {
+    height: calc(100vh - 70px); /* Giả sử $menuHeight = 70px */
+    width: calc(100% - 250px); /* Giả sử $widthSideBar = 250px */
+    max-width: 1440px;
+    background-color: white;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-common .body-container .area-video .banner-ads-wr {
+    height: 80px;
+}
+
+.page-common .body-container .area-video .wr-component-video-reel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.page-common .body-container .area-video .wr-component-video-reel .component-video-reel {
+    width: 100%;
+    gap: 10px;
+    display: flex;
+    border-radius: 15px;
+    justify-content: center;
+    height: calc(100%);
+    position: relative;
+}
+
+.page-common .body-container .area-video .wr-component-video-reel .component-video-reel .swiper-reel {
+    height: 100%;
+    width: calc(100% - 50px);
+    overflow: hidden;
+}
+
+.page-common .body-container .area-video .wr-component-video-reel .component-video-reel .swiper-reel .swiper-slide {
+    .slide-item-wr {
+        position: relative;
+        display: flex;
+        height: 100%;
+        gap: 10px;
+    }
+}
+
+.page-common .body-container .area-video .wr-component-video-reel .component-video-reel .swiper-reel .swiper-slide .slide-item-wr .component-video-element {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-common .body-container .area-video .wr-component-video-reel .component-video-reel .swiper-reel .swiper-slide .slide-item-wr .component-video-element video {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 991px) {
+    .page-common .body-container .area-video {
+        width: 100%;
+    }
+}
