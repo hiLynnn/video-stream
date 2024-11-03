@@ -1,7 +1,5 @@
 @extends('default')
-
 @section('content')
-
     <div class="page-common">
         @include("partials.header")
         <div class="body-container">
