@@ -39,7 +39,6 @@ crossorigin="anonymous"></script>
 </head>
 <body>
 @yield("content")
-
 <script src="{{ URL::asset('site_assets/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ URL::asset('site_assets/js/jquery.easing.min.js') }}"></script>
 <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>

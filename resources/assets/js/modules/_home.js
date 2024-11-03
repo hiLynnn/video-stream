@@ -4,6 +4,13 @@ class Home{
         this.swiper = null;
         this.events();
     }
+    loading(mode=true){
+        if(mode){
+            $('#layer-loading-page').addClass('active')
+        } else {
+            $('#layer-loading-page').removeClass('active')
+        }
+    }
     videoJsUpdate(ids = []){
         ids.forEach(function(item,index){
             const video = videojs(`my-video-${item}`, {});
@@ -32,12 +39,18 @@ class Home{
             method: "GET",
             url: "/api/v1/video",
             data: {},
+            beforeSend:function(){
+                _main.loading(true);
+            },
             success: function({ data }) {
                 _main.swiper.appendSlide(data.html);
                 _main.videoJsUpdate(data.id_reload)
             },
             error: function(xhr, status, error) {
                 console.error("AJAX Error:", error);
+            },
+            complete:function(){
+                _main.loading(false);
             }
         });
     }

@@ -23,6 +23,9 @@
             </div>
             @endif
             <div class="area-video">
+                <div id="layer-loading-page">
+                    <div class="loader"></div>
+                </div>
                 <div class="wr-component-video-reel">
                     <div class="component-video-reel">
                         <div class="swiper-reel">
