@@ -1,6 +1,6 @@
 class Home{
     constructor(){
-        this.cusorPage = '';
+        this.next_page_url = '';
         this.swiper = null;
         this.listVideoIds = [];
         this.currentPlayer = null;
@@ -51,6 +51,10 @@ class Home{
                             player.pause();
                         }
                     }
+                },
+                reachEnd: () => {
+                    console.log("Reached the last slide!");
+                    _main.loadMoreSlides(); // Call a function to load more slides if needed
                 }
             }
         });
@@ -68,7 +72,7 @@ class Home{
             success: function({ data }) {
                 _main.swiper.appendSlide(data?.html);
                 _main.videoJsUpdate(data?.id_reload);
-                _main.cusorPage = data?.next_page_url;
+                _main.next_page_url = data?.next_page_url;
             },
             error: function(xhr, status, error) {
                 console.error("AJAX Error:", error);
@@ -77,6 +81,31 @@ class Home{
                 _main.loading(false);
             }
         });
+    }
+    loadMoreSlides(){
+        const _main = this;
+        if(_main.next_page_url){
+            $.ajax({
+                headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
+                method: "GET",
+                url: _main.next_page_url,
+                data: {},
+                beforeSend:function(){
+                    _main.loading(true);
+                },
+                success: function({ data }) {
+                    _main.swiper.appendSlide(data?.html);
+                    _main.videoJsUpdate(data?.id_reload);
+                    _main.next_page_url = data?.next_page_url;
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", error);
+                },
+                complete:function(){
+                    _main.loading(false);
+                }
+            });
+        }
     }
 }
 export default Home;
