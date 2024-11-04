@@ -9,6 +9,7 @@ use App\Genres;
 use App\Language;
 use App\RecentlyWatched;
 use App\ActorDirector;
+use App\ComboVideo;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -294,6 +295,11 @@ class MoviesController extends MainAdminController
          }
 
          $movie_obj->save();
+
+         $combo_video = new ComboVideo;
+         $combo_video->ref_id = $movie_obj->id;
+         $combo_video->model  = Movies::class;
+         $combo_video->save();
          
         
         if(!empty($inputs['id'])){

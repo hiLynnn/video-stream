@@ -10,6 +10,8 @@ use App\Language;
 use App\ActorDirector;
 use App\Episodes;
 use App\Season;
+use App\Movies;
+use App\ComboVideo;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -77,7 +79,6 @@ class SeriesController extends MainAdminController
     }
     
     public function addSeries()    { 
-        
         if(Auth::User()->usertype!="Admin" AND Auth::User()->usertype!="Sub_Admin")
         {
 
@@ -219,6 +220,12 @@ class SeriesController extends MainAdminController
          }
 
          $series_obj->save();
+
+         $combo_video = new ComboVideo;
+         $combo_video->ref_id = $series_obj->id;
+         $combo_video->model  = Series::class;
+         $combo_video->save();
+
 
 
          //When Series Import From IMDb first time
