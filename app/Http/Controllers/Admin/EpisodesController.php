@@ -113,14 +113,14 @@ class EpisodesController extends MainAdminController
         if(!empty($inputs['id'])){
                 $rule=array(
                         'series' => 'required',
-                        'season' => 'required',
+                        'season' => 'nullable',
                         'video_title' => 'required'                
                          );
         }else
         {
             $rule=array(
                         'series' => 'required',
-                        'season' => 'required',
+                        'season' => 'nullable',
                         'video_title' => 'required',
                         'video_image' => 'required'                
                          );
@@ -148,7 +148,7 @@ class EpisodesController extends MainAdminController
    
          $episode_obj->video_access = $inputs['video_access'];
          $episode_obj->episode_series_id = $inputs['series'];
-         $episode_obj->episode_season_id = $inputs['season'];
+         $episode_obj->episode_season_id = $inputs['season'] ?? '';
          $episode_obj->video_title = addslashes($inputs['video_title']);
          $episode_obj->video_slug = $video_slug;
          $episode_obj->video_description = addslashes($inputs['video_description']);
