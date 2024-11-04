@@ -31,6 +31,7 @@ class Home{
         })
         this.videoSwiper();
         this.getVideos();
+        this.modalEvents();
     }
     pausePrevVideo(self, slider){
         const prevIndex = slider.previousIndex;
@@ -118,6 +119,14 @@ class Home{
                 }
             });
         }
+    }
+    modalEvents(){
+        $(document).on('click', '.video-model-layer, .modal-header span', function(){
+            $("#modal-popup").removeClass('active');
+        })
+        $(document).on('click', '.open-modal', function(){
+            $("#modal-popup").addClass('active');
+        })
     }
 }
 export default Home;
