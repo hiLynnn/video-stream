@@ -76,7 +76,7 @@ class Home{
         $.ajax({
             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
             method: "GET",
-            url: "/api/v1/video",
+            url: "/api/v1/video-load",
             data: {except: video_current},
             beforeSend:function(){
                 _main.loading(true);

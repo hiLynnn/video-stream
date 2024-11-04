@@ -1,18 +1,18 @@
 <div class="swiper-slide">
     <div class="slide-item-wr">
-        <div class="video-url" data-url="/{{$item->video_slug.'/'.$item->id}}"></div>
+        <div class="video-url" data-url="{{$item['url']}}"></div>
         <div class="component-video-element">
             <video
-                id="my-video-{{$item->id}}"
-                data-origin-id="my-video-{{$item->id}}"
+                id="my-video-{{$item['id']}}"
+                data-origin-id="my-video-{{$item['id']}}"
                 class="video-js video-js-default vjs-default-skin"
                 controls
                 preload="auto"
                 playsinline
-                poster="{{ asset($item->video_image_thumb) }}"
+                poster="{{ asset($item['video_image_thumb']) }}"
                 data-setup="{}"
             >
-                <source src="{{ asset($item->video_url) }}" type="video/mp4"/>
+                <source src="{{ asset($item['video_url']) }}" type="video/mp4"/>
             </video>
         </div>
         <div class="button-group-bar">
@@ -23,12 +23,14 @@
                 </div>
                 <span class="title">357.8k</span>
             </div> --}}
-            <div class="btn-grp-item">
-                <div class="btn-icon-circle open-modal">
-                    <img src="{{asset('site_assets/icon/book-journal.svg')}}" alt="icon" >
+            @if ($item['is_serie'])
+                <div class="btn-grp-item">
+                    <div class="btn-icon-circle open-modal" data-url="{{$item['url_get_series']}}">
+                        <img src="{{asset('site_assets/icon/book-journal.svg')}}" alt="icon" >
+                    </div>
+                    <span class="title">357.8k</span>
                 </div>
-                <span class="title">357.8k</span>
-            </div>
+            @endif
             {{-- <div class="btn-grp-item">
                 <div class="btn-icon-circle">
                     <img src="{{asset('site_assets/icon/book.svg')}}" alt="icon" >

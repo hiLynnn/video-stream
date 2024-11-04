@@ -14,7 +14,6 @@ class ComboVideo extends Model
 
     // Define which columns can be mass-assigned
     protected $fillable = [
-        'timestamp',
         'ref_id',
         'model',
     ];

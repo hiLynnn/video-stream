@@ -242,19 +242,18 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['as' => 'public.'],function(){
     Route::get('/', 'IndexController@index')->name('index');
 
-    Route::get('{slug}/{id}', 'IndexController@getViewVideo')->name('view-video');
+    Route::get('view/{slug}/movie/{id}', 'IndexController@getViewVideo')->name('view-video');
 
-    Route::get('old', 'IndexController@oldIndex')->name('old-index');
+    Route::get('view/{slug}/serie/{id}/episode/{episode}', 'IndexController@getViewSerie')->name('view-series');
 
-    Route::group(['prefix' => 'play-movies', 'as' => 'play-movies.'],function(){
-        Route::get('{slug}/{id}', 'PlayVideoController@view')->name('view');
-    });
-    Route::group(['prefix' => 'play-series', 'as' => 'play-series.'],function(){
-        Route::get('{series_slug}/seasons/{season_slug}/{id}', 'PlayVideoController@viewSeries')->name('view');
-    });
-    Route::group(['prefix' => 'category', 'as' => 'category.'],function(){
-        Route::get('/', 'PlayVideoController@view')->name('index');
-    });
+    // Route::get('old', 'IndexController@oldIndex')->name('old-index');
+
+    // Route::group(['prefix' => 'play-series', 'as' => 'play-series.'],function(){
+    //     Route::get('{series_slug}/seasons/{season_slug}/{id}', 'PlayVideoController@viewSeries')->name('view');
+    // });
+    // Route::group(['prefix' => 'category', 'as' => 'category.'],function(){
+    //     Route::get('/', 'PlayVideoController@view')->name('index');
+    // });
 });
 
 Route::get('dashboard', 'UserController@dashboard')->name('public.user.index');
@@ -432,7 +431,8 @@ Route::any('app_mollie_failed', function () {
 });
 
 Route::group(['prefix' => 'api/v1','namespace' => 'API', 'as'=> 'api.'], function(){
-    Route::get('video', [VideoApiController::class,'index'])->name('api.video.index');
+    Route::get('video-load', [VideoApiController::class,'index'])->name('video.index');
+    Route::get('get-episodes/{id}', [VideoApiController::class, 'getEpisodes'])->name('get-episode-list');
 });
 
 //Clear Cache

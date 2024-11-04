@@ -21,7 +21,7 @@
                     @foreach ($data['upcoming_movies'] ?? [] as $index => $movie)
                         {{-- @dd($movie) --}}
                         <div class="movie-item-item">
-                            <a href="{{route('public.play-movies.view',['slug' => Arr::get($movie,'video_slug',''), 'id' => Arr::get($movie,'id','')])}}" >
+                            <a href="" >
                                 <div class="thumb">
                                     <img src="{{Arr::get($movie,'video_image','')}}" alt="">
                                 </div>
@@ -49,7 +49,7 @@
                 <div class="list-movies">
                     @foreach ($data['upcoming_series'] ?? [] as $index => $sery)
                         <div class="movie-item-item">
-                            <a href="{{ route('public.play-movies.view', ['slug' => Arr::get($sery,'series_slug',''), 'id' =>  Arr::get($sery,'id','')]) }}" >
+                            <a href="" >
                                 <div class="thumb">
                                     <img src="{{Arr::get($sery,'series_poster','')}}" alt="">
                                 </div>

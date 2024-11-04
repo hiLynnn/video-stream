@@ -1,7 +1,7 @@
 @extends('default')
 @section('content')
     @if (!empty($video_current))
-        <input type="hidden" value="{{$video_current->id}}" id="video-current">
+        <input type="hidden" value="{{$video_current['except_id']}}" id="video-current">
     @endif
     <div class="page-common">
         @include("partials.header")

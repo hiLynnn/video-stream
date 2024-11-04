@@ -1,5 +1,8 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\ComboVideo;
+use App\Episodes;
 use Auth;
 use App\User;
 use App\Slider;
@@ -25,8 +28,44 @@ class IndexController extends Controller
         return view('pages.index');
     }
 
-    public function getViewVideo($slug, $id){
-        $video_current = Movies::where('id',$id)->where('video_slug',$slug)->first();
+    public function getViewVideo(string $slug,int $id){
+        $movie = Movies::where("id", $id)->where('video_slug',$slug)->first();
+        $combo = ComboVideo::where('ref_id', $id)->first();
+        $video_current = null;
+        if(!blank($movie )){
+            $video_current = [
+                "id" => $movie->id,
+                "video_slug" => $movie->video_slug,
+                "video_url" => $movie->video_url,
+                "video_image" => $movie->video_image,
+                "video_image_thumb" => $movie->video_image_thumb,
+                "name" => $movie->video_title,
+                "is_serie" => false,
+                "url" => route('public.view-video',['slug'=> $movie->video_slug,'id'=> $movie->id]),
+                "except_id"=>  $combo?->id ?? 0
+            ];
+        }
+        return view('pages.index',compact('video_current'));
+    }
+
+    public function getViewSerie(string $slug,int $id,int $episode){
+        $episode = Episodes::where("id", $episode)->where("episode_series_id", $id)->first();
+        $combo = ComboVideo::where('ref_id', $id)->first();
+        $video_current = null;
+        if(!blank($episode )){
+            $video_current = [
+                "id" => $episode->id,
+                "video_slug" => $episode->video_slug,
+                "video_url" => $episode->video_url,
+                "video_image" => $episode->video_image,
+                "video_image_thumb" => $episode->video_image,
+                "name" => $episode->video_title,
+                "is_serie" => true,
+                "url_get_series" => route('api.get-episode-list', ["id"=> $id]),
+                "url" => route('public.view-series',['slug'=> $episode->video_slug,'id'=> $id,'episode'=> $episode->id]),
+                "except_id"=>  $combo?->id ?? 0
+            ];
+        }
         return view('pages.index',compact('video_current'));
     }
 
