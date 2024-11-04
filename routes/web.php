@@ -21,8 +21,6 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-
-
     Route::get('login', [ 'as' => 'login', 'uses' => 'IndexController@index']);
 
     Route::post('login', 'IndexController@postLogin');
@@ -244,6 +242,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['as' => 'public.'],function(){
     Route::get('/', 'IndexController@index')->name('index');
 
+    Route::get('{slug}/{id}', 'IndexController@getViewVideo')->name('view-video');
+
     Route::get('old', 'IndexController@oldIndex')->name('old-index');
 
     Route::group(['prefix' => 'play-movies', 'as' => 'play-movies.'],function(){
@@ -255,8 +255,6 @@ Route::group(['as' => 'public.'],function(){
     Route::group(['prefix' => 'category', 'as' => 'category.'],function(){
         Route::get('/', 'PlayVideoController@view')->name('index');
     });
-
-
 });
 
 Route::get('dashboard', 'UserController@dashboard')->name('public.user.index');

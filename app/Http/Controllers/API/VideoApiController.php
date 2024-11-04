@@ -11,8 +11,10 @@ class VideoApiController extends MainAPIController
 
     }
     public function index(){
+        $except = request()->input('except') ?? 0;
         $data = $this->repository->getCursorBy([
             'upcoming' => 0,
+            'except' => $except,
             'order_by' => [['updated_at', 'DESC']]
         ],[],
         ['id', 'video_access', 'video_title', 'duration', 'video_description', 'video_slug', 'video_image_thumb', 'video_image', 'trailer_url', 'video_url', 'updated_at']);

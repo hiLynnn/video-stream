@@ -17,8 +17,10 @@ class BaseRepository {
                 foreach ($value as $key2 => $value2) {
                     $model->orderBy($value2[0], $value2[1] ?? 'ASC');
                 }
-
-            }else {
+            } else if($key == 'except'){
+                $model->whereNotIn('id', [$value]);
+            }
+            else {
                 $model->where($key, $value);
             }
         }

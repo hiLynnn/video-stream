@@ -1,5 +1,6 @@
 <div class="swiper-slide">
     <div class="slide-item-wr">
+        <div class="video-url" data-url="/{{$item->video_slug.'/'.$item->id}}"></div>
         <div class="component-video-element">
             <video
                 id="my-video-{{$item->id}}"

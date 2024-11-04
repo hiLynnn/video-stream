@@ -32,6 +32,25 @@ class Home{
         this.videoSwiper();
         this.getVideos();
     }
+    pausePrevVideo(self, slider){
+        const prevIndex = slider.previousIndex;
+        const prevSlide = $(slider.slides[prevIndex]);
+        const videoElement = prevSlide.find('video');
+        if (videoElement) {
+            const videoId = videoElement.data("origin-id");
+            const data = self.listVideoIds.filter((e,i)=> e.id == videoId);
+            if(data && data.length > 0){
+                const player = data[0].player
+                player.pause();
+            }
+        }
+    }
+    pushUrlState(self, slider){
+        const activeIndex = slider.activeIndex;
+        const activeSlide = $(slider.slides[activeIndex]);
+        const videoUrl = activeSlide.find('.video-url').data('url');
+        history.pushState({ page: "/" }, videoUrl, videoUrl);
+    }
     videoSwiper(){
         const _main = this;
         this.swiper = new Swiper('.swiper-reel', {
@@ -40,17 +59,8 @@ class Home{
             mousewheel: true,
             on: {
                 slideChange: function () {
-                    const prevIndex = this.previousIndex;
-                    const prevSlide = $(this.slides[prevIndex]);
-                    const videoElement = prevSlide.find('video');
-                    if (videoElement) {
-                        const videoId = videoElement.data("origin-id");
-                        const data = _main.listVideoIds.filter((e,i)=> e.id == videoId);
-                        if(data && data.length > 0){
-                            const player = data[0].player
-                            player.pause();
-                        }
-                    }
+                    _main.pausePrevVideo(_main, this);
+                    _main.pushUrlState(_main, this)
                 },
                 reachEnd: () => {
                     console.log("Reached the last slide!");
@@ -61,11 +71,12 @@ class Home{
     }
     getVideos(){
         const _main = this;
+        const video_current = $("#video-current").val() ?? 0;
         $.ajax({
             headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
             method: "GET",
             url: "/api/v1/video",
-            data: {},
+            data: {except: video_current},
             beforeSend:function(){
                 _main.loading(true);
             },
@@ -84,12 +95,13 @@ class Home{
     }
     loadMoreSlides(){
         const _main = this;
+        const video_current = $("#video-current").val() ?? 0;
         if(_main.next_page_url){
             $.ajax({
                 headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
                 method: "GET",
                 url: _main.next_page_url,
-                data: {},
+                data: {except: video_current},
                 beforeSend:function(){
                     _main.loading(true);
                 },

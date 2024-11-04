@@ -1,5 +1,8 @@
 @extends('default')
 @section('content')
+    @if (!empty($video_current))
+        <input type="hidden" value="{{$video_current->id}}" id="video-current">
+    @endif
     <div class="page-common">
         @include("partials.header")
         <div class="body-container">
@@ -28,6 +31,9 @@
                     <div class="component-video-reel">
                         <div class="swiper-reel">
                             <div class="swiper-wrapper" id="append-list-video">
+                                @if (!empty($video_current))
+                                    {!!view('partials.video-item',['item'=> $video_current])->render()!!}
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Auth;
 use App\User;
 use App\Slider;
@@ -13,42 +11,25 @@ use App\Pages;
 use App\RecentlyWatched;
 use App\LiveTV;
 use App\UsersDeviceHistory;
-
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use Intervention\Image\Facades\Image;
-
 use Session;
-
-use ProtoneMedia\LaravelFFMpeg;
-use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
-use ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider;
-use FFMpeg\Coordinate\Dimension;
-use FFMpeg\Format\Video\X264;
-use FFMpeg\Filters\AdvancedMedia\ComplexFilters;
-use FFMpeg\Filters\Video\WatermarkFilter;
-
 require(base_path() . '/public/device-detector/vendor/autoload.php');
-use DeviceDetector\ClientHints;
 use DeviceDetector\DeviceDetector;
 use DeviceDetector\Parser\Device\AbstractDeviceParser;
-
 AbstractDeviceParser::setVersionTruncation(AbstractDeviceParser::VERSION_TRUNCATION_NONE);
-
 class IndexController extends Controller
 {
-
-
     public function index()
     {
-        $data[] = [];
-        $data['upcoming_movies'] = Movies::where('upcoming',0)->orderby('id','DESC')->limit(10)->get();
-        $data['upcoming_series'] = Series::where('upcoming',0)->orderby('id','DESC')->limit(10)->get();
-        return view('pages.index',compact('data'));
+        return view('pages.index');
     }
+
+    public function getViewVideo($slug, $id){
+        $video_current = Movies::where('id',$id)->where('video_slug',$slug)->first();
+        return view('pages.index',compact('video_current'));
+    }
+
     public function oldIndex()
     {
         // if(!$this->alreadyInstalled())
@@ -137,7 +118,6 @@ class IndexController extends Controller
         }
 
     }
-
 
     public function alreadyInstalled()
     {
@@ -621,5 +601,4 @@ class IndexController extends Controller
           echo "false";
         }
     }
-
 }
