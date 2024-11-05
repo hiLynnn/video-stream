@@ -42,15 +42,16 @@ class IndexController extends Controller
                 "name" => $movie->video_title,
                 "is_serie" => false,
                 "url" => route('public.view-video',['slug'=> $movie->video_slug,'id'=> $movie->id]),
-                "except_id"=>  $combo?->id ?? 0
+                "except_id"=>  $combo?->id ?? 0,
+                "url_get_info" => route('api.get-video-info', ["id"=> $combo?->id]),
             ];
         }
         return view('pages.index',compact('video_current'));
     }
 
-    public function getViewSerie(string $slug,int $id,int $episode){
-        $episode = Episodes::where("id", $episode)->where("episode_series_id", $id)->first();
-        $combo = ComboVideo::where('ref_id', $id)->first();
+    public function getViewSerie(string $slug,int $serie_id,int $episode_id){
+        $episode = Episodes::where("id", $episode_id)->where("episode_series_id", $serie_id)->first();
+        $combo = ComboVideo::where('ref_id', $serie_id)->first();
         $video_current = null;
         if(!blank($episode )){
             $video_current = [
@@ -61,8 +62,8 @@ class IndexController extends Controller
                 "video_image_thumb" => $episode->video_image,
                 "name" => $episode->video_title,
                 "is_serie" => true,
-                "url_get_series" => route('api.get-episode-list', ["id"=> $id]),
-                "url" => route('public.view-series',['slug'=> $episode->video_slug,'id'=> $id,'episode'=> $episode->id]),
+                "url_get_info" => route('api.get-video-info', ["id"=> $combo?->id]),
+                "url" => route('public.view-series',['slug'=> $episode->video_slug,'id'=> $serie_id,'episode'=> $episode_id]),
                 "except_id"=>  $combo?->id ?? 0
             ];
         }

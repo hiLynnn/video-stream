@@ -125,7 +125,30 @@ class App{
             $("#modal-popup").removeClass('active');
         })
         $(document).on('click', '.open-modal', function(){
+            const _this = $(this);
+            const url = _this.data('url');
             $("#modal-popup").addClass('active');
+            if(url){
+                $.ajax({
+                    headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
+                    method: "GET",
+                    url: url,
+                    data: {},
+                    beforeSend:function(){
+                        $("#modal-popup").addClass('loading');
+                        $('#append-html-modal').html('');
+                    },
+                    success: function({ data }) {
+                        $('#append-html-modal').html(data?.html);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                    },
+                    complete:function(){
+                        $("#modal-popup").removeClass('loading');
+                    }
+                });
+            }
         })
     }
 }

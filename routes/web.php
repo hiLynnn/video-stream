@@ -432,7 +432,7 @@ Route::any('app_mollie_failed', function () {
 
 Route::group(['prefix' => 'api/v1','namespace' => 'API', 'as'=> 'api.'], function(){
     Route::get('video-load', [VideoApiController::class,'index'])->name('video.index');
-    Route::get('get-episodes/{id}', [VideoApiController::class, 'getEpisodes'])->name('get-episode-list');
+    Route::get('get-episodes/{id}', [VideoApiController::class, 'getEpisodes'])->name('get-video-info');
 });
 
 //Clear Cache

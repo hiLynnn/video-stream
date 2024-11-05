@@ -39,17 +39,21 @@
 </head>
 <body>
     @yield("content")
-    <div id="modal-popup" class="video-model">
+    <div id="modal-popup" class="video-model active">
         <div class="wr-relative">
             <div class="video-model-layer"></div>
             <div class="video-model-content">
-                <div class="modal-header">
-                    <span>
-                        <img src="{{asset('site_assets/icon/close.svg')}}" alt="">
-                    </span>
-                </div>
-                <div id="append-html-modal">
-
+                <div style="position: relative;height: 100%;">
+                    <div class="layer-loading-page">
+                        <div class="loader"></div>
+                    </div>
+                    <div class="modal-header">
+                        <span>
+                            <img src="{{asset('site_assets/icon/close.svg')}}" alt="">
+                        </span>
+                    </div>
+                    <div id="append-html-modal">
+                    </div>
                 </div>
             </div>
         </div>

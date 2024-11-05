@@ -41,7 +41,7 @@ class VideoApiController extends MainAPIController
                         "video_image_thumb" => $episode->video_image,
                         "name" => $episode->video_title,
                         "is_serie" => true,
-                        "url_get_series" => route('api.get-episode-list', ["id"=> $value->ref_id]),
+                        "url_get_info" => route('api.get-video-info', ["id"=> $value?->id]),
                         "url" => route('public.view-series',['slug'=> $episode->video_slug,'id'=> $value->ref_id,'episode'=> $episode->id])
                     ];
                     $id_reload[] = $episode->id;
@@ -62,6 +62,7 @@ class VideoApiController extends MainAPIController
                         "video_image_thumb" => $movie->video_image_thumb,
                         "name" => $movie->video_title,
                         "is_serie" => false,
+                        "url_get_info" => route('api.get-video-info', ["id"=> $value?->id]),
                         "url" => route('public.view-video',['slug'=> $movie->video_slug,'id'=> $movie->id])
                     ];
                     $id_reload[] = $movie->id;
@@ -84,11 +85,16 @@ class VideoApiController extends MainAPIController
     }
 
     public function getEpisodes($id){
-        $data = Episodes::where("episode_series_id", $id)
-                ->orderBy("episode_season_id")
-                ->orderBy("created_at")
-                ->get();
+        try {
+            // $data = ComboVideo::where('id',$id)->first();
+            $data = [];
+            $data['name'] = "name";
+            return $this->toReponse([
+                'html' => view('partials.modal-info',compact('data'))->render()
+            ]);
+        } catch (\Throwable $th) {
+            return $this->toReponse([],$th->getMessage(),true,500);
+        }
 
-        return $this->toReponse($data);
     }
 }
