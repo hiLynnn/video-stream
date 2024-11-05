@@ -1,5 +1,5 @@
-import Home from "./modules/_home"
+import App from "./modules/_home"
 
 $(document).ready(function(){
-    new Home();
+    new App();
 })

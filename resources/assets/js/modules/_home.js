@@ -1,4 +1,4 @@
-class Home{
+class App{
     constructor(){
         this.next_page_url = '';
         this.swiper = null;
@@ -129,4 +129,4 @@ class Home{
         })
     }
 }
-export default Home;
+export default App;
