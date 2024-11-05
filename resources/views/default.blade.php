@@ -39,7 +39,7 @@
 </head>
 <body>
     @yield("content")
-    <div id="modal-popup" class="video-model active">
+    <div id="modal-popup" class="video-model">
         <div class="wr-relative">
             <div class="video-model-layer"></div>
             <div class="video-model-content">

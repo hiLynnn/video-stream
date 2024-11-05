@@ -100,6 +100,7 @@ class IndexController extends Controller
                     "is_serie" => false,
                     "url" => route('public.view-video', ['slug' => $movies->video_slug, 'id' => $movies->id]),
                     "except_id"=> 0,
+                    "url_get_info" => route('api.get-video-info', ["id"=> $movies?->id]),
                 ];
         }
     
@@ -114,7 +115,7 @@ class IndexController extends Controller
                     "video_image_thumb" => $episodes->video_image,
                     "name" => $episodes->video_title,
                     "is_serie" => true,
-                    "url_get_series" => route('api.get-episode-list', ["id" => $series->id]),
+                    "url_get_info" => route('api.get-video-info', ["id" => $series->id]),
                     "url" => route('public.view-series', ['slug' => $episodes->video_slug, 'id' => $series->id, 'episode' => $episodes->id]),
                     "except_id"=> 0,
                 ];

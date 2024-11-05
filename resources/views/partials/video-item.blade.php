@@ -23,16 +23,16 @@
                 </div>
                 <span class="title">357.8k</span>
             </div>
-            <div class="btn-grp-item">
+            <!-- <div class="btn-grp-item">
                 <div class="btn-icon-circle open-modal" data-url="{{$item['url_get_info']}}">
                     <img src="{{asset('site_assets/icon/book-journal.svg')}}" alt="icon" >
                 </div>
             </div>
             <div class="btn-grp-item">
-            </div> 
+            </div>  -->
             @if ($item['is_serie'])
                 <div class="btn-grp-item">
-                    <div class="btn-icon-circle open-modal" data-url="{{$item['url_get_series']}}">
+                    <div class="btn-icon-circle open-modal" data-url="{{$item['url_get_info']}}">
                         <img src="{{asset('site_assets/icon/book-journal.svg')}}" alt="icon" >
                     </div>
                     <span class="title">Tập phim</span>
