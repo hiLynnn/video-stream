@@ -8,7 +8,8 @@
               @endif
         </div>
         <div class="menu-header__wrapper">
-            <form data-e2e="search-box" class="search-input css-FormElement" action="/search"><input placeholder="Search"
+            <form data-e2e="search-box" class="search-input css-FormElement" action="{{route('public.search-video')}}">
+                <input placeholder="Search"
                     name="q" type="search" class="css-InputElement" value="">
                 <span class="css-SpanSpliter"></span>
                 <button data-e2e="search-box-button" type="submit" aria-label="Search" class="css-ButtonSearch">

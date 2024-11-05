@@ -1,5 +1,10 @@
 @extends('default')
 @section('content')
+    @if(session('not_found'))
+        <div class="not-found-message">
+            {{ session('not_found') }}
+        </div>
+    @endif
     @if (!empty($video_current))
         <input type="hidden" value="{{$video_current['except_id']}}" id="video-current">
     @endif

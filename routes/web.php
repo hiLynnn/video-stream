@@ -241,7 +241,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
 Route::group(['as' => 'public.'],function(){
     Route::get('/', 'IndexController@index')->name('index');
-
+    Route::get('search-video', 'IndexController@searchVideo')->name('search-video');
+    
     Route::get('view/{slug}/movie/{id}', 'IndexController@getViewVideo')->name('view-video');
 
     Route::get('view/{slug}/serie/{id}/episode/{episode}', 'IndexController@getViewSerie')->name('view-series');
@@ -381,7 +382,10 @@ Route::get('directors/{slug}/{id}', 'ActorDirectorController@director_details');
 Route::get('page/{slug}', 'PagesController@get_page');
 Route::post('contact_send', 'PagesController@contact_send');
 
+
 Route::get('search', 'IndexController@search');
+
+
 Route::get('search_elastic', 'IndexController@search_elastic');
 
 Route::get('password/email', 'Auth\ForgotPasswordController@forget_password');
@@ -429,6 +433,7 @@ Route::any('app_mollie_success', function () {
 Route::any('app_mollie_failed', function () {
     return view('app.app_failed');
 });
+
 
 Route::group(['prefix' => 'api/v1','namespace' => 'API', 'as'=> 'api.'], function(){
     Route::get('video-load', [VideoApiController::class,'index'])->name('video.index');

@@ -384,7 +384,7 @@
                                     width: 48px;
                                     display: flex;
                                     flex-direction: column;
-                                    justify-content: center;
+                                    justify-content: flex-end;
                                     .btn-grp-item{
                                         display: flex;
                                         flex-direction: column;
@@ -722,4 +722,14 @@
 .video-js{
     width: 100%;
     height: 100%;
+}
+.not-found-message{
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+    border: 1px solid #f5c6cb; /* Light red border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 15px; /* Spacing inside the div */
+    margin: 20px 0; /* Margin above and below */
+    font-size: 16px; /* Font size */
+    text-align: center; /* Center text */
 }

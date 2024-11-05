@@ -69,6 +69,68 @@ class IndexController extends Controller
         }
         return view('pages.index',compact('video_current'));
     }
+    public function searchVideo(Request $request)
+    {
+        $query = request()->input('q');
+    
+   
+        if (blank($query)) {
+            return redirect()->back()->withErrors('Please enter a search term.');
+        }
+    
+   
+        $movies = Movies::where('video_title', 'LIKE', '%' . $query . '%')
+                        ->orWhere('video_slug', 'LIKE', '%' . $query . '%')
+                        ->first();
+    
+
+        $series = Series::where('series_name', 'LIKE', '%' . $query . '%')
+                        ->first();
+
+        $video_current = null;
+
+        if($movies){
+                $video_current = [
+                    "id" => $movies->id,
+                    "video_slug" => $movies->video_slug,
+                    "video_url" => $movies->video_url,
+                    "video_image" => $movies->video_image,
+                    "video_image_thumb" => $movies->video_image_thumb,
+                    "name" => $movies->video_title,
+                    "is_serie" => false,
+                    "url" => route('public.view-video', ['slug' => $movies->video_slug, 'id' => $movies->id]),
+                    "except_id"=> 0,
+                ];
+        }
+    
+        if($series){
+            $episodes = Episodes::where('episode_series_id', $series->id)->first();
+            if($episodes){
+                $video_current = [
+                    "id" => $episodes->id,
+                    "video_slug" => $episodes->video_slug,
+                    "video_url" => $episodes->video_url,
+                    "video_image" => $episodes->video_image,
+                    "video_image_thumb" => $episodes->video_image,
+                    "name" => $episodes->video_title,
+                    "is_serie" => true,
+                    "url_get_series" => route('api.get-episode-list', ["id" => $series->id]),
+                    "url" => route('public.view-series', ['slug' => $episodes->video_slug, 'id' => $series->id, 'episode' => $episodes->id]),
+                    "except_id"=> 0,
+                ];
+            }
+            else{
+                return view('pages.index', [
+                    'video_current' => $video_current,
+                    'not_found' => 'Không tìm thấy video',
+                ]);
+            }
+        }
+    
+        return view('pages.index', compact('video_current'));
+    }
+    
+
 
     public function oldIndex()
     {
