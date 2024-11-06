@@ -86,12 +86,57 @@ class VideoApiController extends MainAPIController
 
     public function getEpisodes($id){
         try {
-            // $data = ComboVideo::where('id',$id)->first();
-            $data = [];
-            $data['name'] = "name";
-            return $this->toReponse([
-                'html' => view('partials.modal-info',compact('data'))->render()
-            ]);
+            $combo = ComboVideo::where('id',$id)->first();
+            if($combo->model == Series::class){
+                try {
+                    $episode = Episodes::where("episode_series_id", $combo->ref_id)
+                        ->orderBy("episode_season_id")
+                        ->orderBy("created_at")
+                        ->first();
+                    if(blank($episode)){
+                        return $this->toReponse([],'',true,404);
+                    }
+                    $data = [
+                        "id" => $episode->id,
+                        "video_slug" => $episode->video_slug,
+                        "video_url" => $episode->video_url,
+                        "video_image" => $episode->video_image,
+                        "video_image_thumb" => $episode->video_image,
+                        "video_description" => $episode->video_description,
+                        "name" => $episode->video_title,
+                        "is_serie" => true,
+                    ];
+                    return $this->toReponse([
+                        'html' => view('partials.modal-info-series',compact('data'))->render()
+                    ]);
+                } catch (\Throwable $th) {
+                    return $this->toReponse([],$th->getMessage(),true,500);
+                }
+            }
+            if($combo->model == Movies::class){
+                try {
+                    $movie = Movies::where("id", $combo->ref_id)->first();
+                    if(blank($movie)){
+                        return $this->toReponse([],'',true,404);
+                    }
+                    $data = [
+                        "id" => $movie->id,
+                        "video_slug" => $movie->video_slug,
+                        "video_url" => $movie->video_url,
+                        "video_image" => $movie->video_image,
+                        "video_image_thumb" => $movie->video_image_thumb,
+                        "video_description" => $movie->video_description,
+                        "name" => $movie->video_title,
+                        "is_serie" => false,
+                    ];
+                    return $this->toReponse([
+                        'html' => view('partials.modal-info-video',compact('data'))->render()
+                    ]);
+                } catch (\Throwable $th) {
+                    return $this->toReponse([],$th->getMessage(),true,500);
+                }
+            }
+            return $this->toReponse([],'',true,404);
         } catch (\Throwable $th) {
             return $this->toReponse([],$th->getMessage(),true,500);
         }
